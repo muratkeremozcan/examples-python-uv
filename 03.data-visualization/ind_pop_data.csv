@@ -1,0 +1,51 @@
+CountryName,CountryCode,IndicatorName,IndicatorCode,Year,Value,Total Population,Urban Population (millions)
+Arab World,ARB,Urban population (% of total),SP.URB.TOTL.IN.ZS,1960,31.285,92000000,28.78
+Caribbean small states,CSS,Urban population (% of total),SP.URB.TOTL.IN.ZS,1960,31.597,5400000,1.71
+Central Europe and the Baltics,CEB,Urban population (% of total),SP.URB.TOTL.IN.ZS,1960,44.508,74000000,32.93
+East Asia & Pacific (all income levels),EAS,Urban population (% of total),SP.URB.TOTL.IN.ZS,1960,22.471,1200000000,269.65
+East Asia & Pacific (developing only),EAP,Urban population (% of total),SP.URB.TOTL.IN.ZS,1960,16.918,900000000,152.26
+Euro area,EMU,Urban population (% of total),SP.URB.TOTL.IN.ZS,1960,62.097,320000000,198.71
+Europe & Central Asia (all income levels),ECS,Urban population (% of total),SP.URB.TOTL.IN.ZS,1960,55.379,780000000,432.96
+Europe & Central Asia (developing only),ECA,Urban population (% of total),SP.URB.TOTL.IN.ZS,1960,38.066,120000000,45.68
+European Union,EUU,Urban population (% of total),SP.URB.TOTL.IN.ZS,1960,61.213,350000000,214.25
+Fragile and conflict affected situations,FCS,Urban population (% of total),SP.URB.TOTL.IN.ZS,1960,17.892,60000000,10.73
+Heavily indebted poor countries (HIPC),HPC,Urban population (% of total),SP.URB.TOTL.IN.ZS,1960,12.236,40000000,4.89
+High income,HIC,Urban population (% of total),SP.URB.TOTL.IN.ZS,1960,62.680,800000000,501.44
+High income: nonOECD,NOC,Urban population (% of total),SP.URB.TOTL.IN.ZS,1960,56.108,200000000,112.22
+High income: OECD,OEC,Urban population (% of total),SP.URB.TOTL.IN.ZS,1960,64.285,700000000,450.00
+Latin America & Caribbean (all income levels),LCN,Urban population (% of total),SP.URB.TOTL.IN.ZS,1960,49.285,250000000,123.21
+Latin America & Caribbean (developing only),LAC,Urban population (% of total),SP.URB.TOTL.IN.ZS,1960,44.863,230000000,103.18
+Least developed countries: UN classification,LDC,Urban population (% of total),SP.URB.TOTL.IN.ZS,1960,9.616,50000000,4.81
+Low & middle income,LMY,Urban population (% of total),SP.URB.TOTL.IN.ZS,1960,21.273,3000000000,638.19
+Low income,LIC,Urban population (% of total),SP.URB.TOTL.IN.ZS,1960,11.498,800000000,91.98
+Lower middle income,LMC,Urban population (% of total),SP.URB.TOTL.IN.ZS,1960,19.811,1600000000,316.97
+Middle East & North Africa (all income levels),MEA,Urban population (% of total),SP.URB.TOTL.IN.ZS,1960,34.951,320000000,111.84
+Middle East & North Africa (developing only),MNA,Urban population (% of total),SP.URB.TOTL.IN.ZS,1960,33.875,250000000,84.69
+Middle income,MIC,Urban population (% of total),SP.URB.TOTL.IN.ZS,1960,22.053,1400000000,308.74
+North America,NAC,Urban population (% of total),SP.URB.TOTL.IN.ZS,1960,69.918,260000000,181.79
+OECD members,OED,Urban population (% of total),SP.URB.TOTL.IN.ZS,1960,62.481,900000000,562.33
+Other small states,OSS,Urban population (% of total),SP.URB.TOTL.IN.ZS,1960,14.338,7000000,1.00
+Pacific island small states,PSS,Urban population (% of total),SP.URB.TOTL.IN.ZS,1960,22.044,5000000,1.10
+Small states,SST,Urban population (% of total),SP.URB.TOTL.IN.ZS,1960,21.121,10000000,2.11
+South Asia,SAS,Urban population (% of total),SP.URB.TOTL.IN.ZS,1960,16.736,1200000000,200.83
+Sub-Saharan Africa (all income levels),SSF,Urban population (% of total),SP.URB.TOTL.IN.ZS,1960,14.631,1000000000,146.31
+Sub-Saharan Africa (developing only),SSA,Urban population (% of total),SP.URB.TOTL.IN.ZS,1960,14.617,900000000,131.55
+Upper middle income,UMC,Urban population (% of total),SP.URB.TOTL.IN.ZS,1960,24.109,1800000000,434.16
+World,WLD,Urban population (% of total),SP.URB.TOTL.IN.ZS,1960,33.558,7300000000,2451.73
+Afghanistan,AFG,Urban population (% of total),SP.URB.TOTL.IN.ZS,1960,8.221,8000000,0.66
+Albania,ALB,Urban population (% of total),SP.URB.TOTL.IN.ZS,1960,30.705,2000000,0.61
+Algeria,DZA,Urban population (% of total),SP.URB.TOTL.IN.ZS,1960,30.510,11000000,3.36
+American Samoa,ASM,Urban population (% of total),SP.URB.TOTL.IN.ZS,1960,66.211,45000,0.03
+Andorra,ADO,Urban population (% of total),SP.URB.TOTL.IN.ZS,1960,58.450,15000,0.01
+Angola,AGO,Urban population (% of total),SP.URB.TOTL.IN.ZS,1960,10.435,5000000,0.52
+Antigua and Barbuda,ATG,Urban population (% of total),SP.URB.TOTL.IN.ZS,1960,39.656,35000,0.01
+Argentina,ARG,Urban population (% of total),SP.URB.TOTL.IN.ZS,1960,73.611,18000000,13.25
+Armenia,ARM,Urban population (% of total),SP.URB.TOTL.IN.ZS,1960,51.275,2000000,1.02
+Aruba,ABW,Urban population (% of total),SP.URB.TOTL.IN.ZS,1960,50.776,50000,0.03
+Australia,AUS,Urban population (% of total),SP.URB.TOTL.IN.ZS,1960,81.529,10000000,8.15
+Austria,AUT,Urban population (% of total),SP.URB.TOTL.IN.ZS,1960,64.720,7000000,4.53
+Azerbaijan,AZE,Urban population (% of total),SP.URB.TOTL.IN.ZS,1960,52.663,3000000,1.58
+Bahamas, The,BHS,Urban population (% of total),SP.URB.TOTL.IN.ZS,1960,59.712,100000,0.06
+Bahrain,BHR,Urban population (% of total),SP.URB.TOTL.IN.ZS,1960,82.320,150000,0.12
+Bangladesh,BGD,Urban population (% of total),SP.URB.TOTL.IN.ZS,1960,5.135,50000000,2.57
+Barbados,BRB,Urban population (% of total),SP.URB.TOTL.IN.ZS,1960,36.777,120000,0.04

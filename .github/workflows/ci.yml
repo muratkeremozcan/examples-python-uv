@@ -1,0 +1,55 @@
+name: Python CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v4
+        with:
+          version: "latest"
+
+      - name: Set up Python
+        run: uv python install 3.12
+
+      # Cache uv dependencies
+      - name: Cache uv dependencies
+        uses: actions/cache@v3
+        with:
+          path: .venv
+          key: ${{ runner.os }}-uv-${{ hashFiles('**/uv.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-uv-
+
+      - name: Install dependencies
+        run: |
+          uv sync --all-extras
+
+      # Only check for syntax errors and undefined names
+      - name: Check code quality with flake8
+        run: |
+          uv run flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+
+      # Find all Python files and check their syntax
+      - name: Check Python syntax
+        run: |
+          uv run python -c "import py_compile; import glob; [py_compile.compile(file) for file in glob.glob('**/*.py', recursive=True)]"
+
+      - name: Run tests with pytest
+        run: |
+          uv run pytest
+
+# Using python -m mypy instead of direct mypy command ensures the tool is run
+# through the Python interpreter installed in the current environment, avoiding path resolution issues.
+# This approach guarantees that the correct version of mypy is used and that it's properly found
+# even if the executable isn't directly in the system PATH

@@ -1,0 +1,1 @@
+# Initialize integration tests package

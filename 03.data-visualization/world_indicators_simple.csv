@@ -1,0 +1,9 @@
+CountryName,CountryCode,IndicatorName,IndicatorCode,Year,Value
+"Arab World",ARB,"Adolescent fertility rate (births per 1,000 women ages 15-19)",SP.ADO.TFRT,1960,133.56090740552298
+"Arab World",ARB,"Adolescent fertility rate (births per 1,000 women ages 15-19)",SP.ADO.TFRT,1970,115.34472929375724
+"United States",USA,"GDP per capita (current US$)",NY.GDP.PCAP.CD,2020,63528.63
+China,CHN,"GDP per capita (current US$)",NY.GDP.PCAP.CD,2020,10500.40
+India,IND,"Life expectancy at birth (years)",SP.DYN.LE00.IN,2020,69.66
+Germany,DEU,"Life expectancy at birth (years)",SP.DYN.LE00.IN,2020,81.09
+Brazil,BRA,"CO2 emissions (metric tons per capita)",EN.ATM.CO2E.PC,2019,2.04
+Nigeria,NGA,"Access to electricity (% of population)",EG.ELC.ACCS.ZS,2020,55.40
