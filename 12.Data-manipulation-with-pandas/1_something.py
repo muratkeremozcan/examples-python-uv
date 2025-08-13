@@ -106,6 +106,18 @@ print(df[(df['family_members'] > 10000) & (df['region'] == 'Pacific')].head())
 print('\nfiltering rows with isin:')
 print(df[df['state'].isin(['California', 'Texas', 'Florida'])].head())
 
+print('\nadd new columns (e.g., total, p_homeless):')
+df['total'] = df['individuals'] + df['family_members']
+df['p_homeless'] = df['total'] / df['state_pop']
+print(df.head())
+
+# Create indiv_per_10k col as homeless individuals per 10k state pop
+df["indiv_per_10k"] = df["individuals"] / df["state_pop"] * 10000
+# filter rows for indiv_per_10k greater than 20, and sort descending
+high_homelessness_srt = df[df["indiv_per_10k"] > 20].sort_values('indiv_per_10k', ascending=False)
+# From high_homelessness_srt, select the state and indiv_per_10k cols
+result = high_homelessness_srt[['state', 'indiv_per_10k']]
+
 #                 region                 state  individuals  family_members  state_pop
 # 0   East South Central               Alabama       2570.0           864.0    4887681
 # 1              Pacific                Alaska       1434.0           582.0     735139
