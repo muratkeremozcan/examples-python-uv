@@ -1,22 +1,10 @@
-# key takeaways
-# head(n): first n rows (default 5)
-# info(): dtypes, non-nulls, memory
-# describe(): summary stats like count, mean, std, min, 25%, 50%, 75%, max
-# shape: (rows, cols)
-# values: underlying NumPy 2D array 
-# columns: column labels (Index)
-# index: row labels (Index)
-# sort_values(col): sort rows; use ascending=False or list/array for multi-col & order
-# selecting columns: df[['col']], df[['col1','col2']]
-# row filtering: df[df['col'] > x]
-# combine filters: use & (and), | (or), ~ (not) with parentheses
-# isin(seq): membership filter, e.g., df[df['state'].isin([...])]
-
-
 import pandas as pd
 
-# Create a DataFrame with the provided data
-df = pd.DataFrame({
+# JavaScript = array of objects (row-oriented)
+# Pandas DataFrame = object of arrays (column-oriented)
+# This column-oriented structure enables fast vectorized operations on entire columns
+
+homelessness = pd.DataFrame({
     'region': [
         'East South Central', 'Pacific', 'Mountain', 'West South Central', 'Pacific',
         'Mountain', 'New England', 'South Atlantic', 'South Atlantic', 'South Atlantic',
@@ -62,61 +50,6 @@ df = pd.DataFrame({
     ]
 })
 
-# Display the first few rows to verify
-print("First 5 rows of the DataFrame:")
-print(df.head())
-
-print('\nInfo (dtypes, non-nulls, memo):')
-print(df.info())
-
-print('\nShape (rows, columns):')
-print(df.shape)
-
-print('\nDescribe (summary stats like count, mean, std, min, 25%, 50%, 75%, max):')
-print(df.describe())
-
-print('\nValues (underlying NumPy 2D array):')
-print(df.values)
-
-print('\nColumn (column labels):')
-print(df.columns)
-
-print('\nRow (row labels):')
-print(df.index)
-
-print('\nsort_values (ascending):')
-print(df.sort_values('individuals').head())
-print('\nsort_values (descending):')
-print(df.sort_values('family_members', ascending=False).head())
-print('\nsort_values (by 2 columns using a list/array):')
-print(df.sort_values(['region', 'family_members'], ascending=[True, False]).head())
-
-print('\nselecting columns:')
-print(df[['individuals']].head())
-print(df[['individuals', 'state']].head())
-
-print('\nfiltering rows:')
-print(df[df['individuals'] > 10000].head())
-print('\n')
-print(df[df['region'] == 'Mountain'].head())
-
-print('\ndouble filtering rows (use & (and), | (or), ~ (not) with parentheses):')
-print(df[(df['family_members'] > 10000) & (df['region'] == 'Pacific')].head())
-
-print('\nfiltering rows with isin:')
-print(df[df['state'].isin(['California', 'Texas', 'Florida'])].head())
-
-print('\nadd new columns (e.g., total, p_homeless):')
-df['total'] = df['individuals'] + df['family_members']
-df['p_homeless'] = df['total'] / df['state_pop']
-print(df.head())
-
-# Create indiv_per_10k col as homeless individuals per 10k state pop
-df["indiv_per_10k"] = df["individuals"] / df["state_pop"] * 10000
-# filter rows for indiv_per_10k greater than 20, and sort descending
-high_homelessness_srt = df[df["indiv_per_10k"] > 20].sort_values('indiv_per_10k', ascending=False)
-# From high_homelessness_srt, select the state and indiv_per_10k cols
-result = high_homelessness_srt[['state', 'indiv_per_10k']]
 
 #                 region                 state  individuals  family_members  state_pop
 # 0   East South Central               Alabama       2570.0           864.0    4887681
