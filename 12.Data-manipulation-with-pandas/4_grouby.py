@@ -6,12 +6,12 @@
 
 import pandas as pd
 
-# Tiny, concrete example
 demo = pd.DataFrame({
     'type': ['A','A','B','B','C'],
     'is_holiday': [False, True, False, False, True],
     'weekly_sales': [100, 120, 80, 140, 60]
 })
+print("Original dataframe:")
 print(demo)
 
 print("\nSum per type → Series indexed by 'type':")
@@ -57,14 +57,14 @@ sales_B = sales[sales["type"] == "B"]["weekly_sales"].sum()
 sales_C = sales[sales["type"] == "C"]["weekly_sales"].sum()
 
 # Get proportion for each type
-sales_propn_by_type = [sales_A, sales_B, sales_C] / sales_all
-print(sales_propn_by_type)
+sales_proportion_by_type = [sales_A, sales_B, sales_C] / sales_all
+print(sales_proportion_by_type)
 
 # groupby() instead
 sales_by_type = sales.groupby('type')['weekly_sales'].sum()
 
-sales_propn_by_type = sales_by_type / sales_by_type.sum()
-print(sales_propn_by_type)
+sales_proportion_by_type = sales_by_type / sales_by_type.sum()
+print(sales_proportion_by_type)
 
 #######
 
