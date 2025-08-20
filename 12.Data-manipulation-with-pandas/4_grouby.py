@@ -5,6 +5,7 @@
 # 3) Combine results into a Series/DataFrame (index = group keys)
 
 import pandas as pd
+from dataframes.sales import sales
 
 demo = pd.DataFrame({
     'type': ['A','A','B','B','C'],
@@ -47,7 +48,7 @@ print(sum_by_type_df)
 
 
 
-from dataframes.sales import sales
+
 
 # Calc total weekly sales
 sales_all = sales["weekly_sales"].sum()

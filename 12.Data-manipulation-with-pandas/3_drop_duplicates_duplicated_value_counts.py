@@ -5,7 +5,7 @@
 #   • bins=... to bucket numeric data
 #   • to DataFrame: s.value_counts().rename_axis('value').reset_index(name='count')
 
-
+from dataframes.sales import sales
 import pandas as pd
 
 df = pd.DataFrame({
@@ -64,7 +64,6 @@ print(vc.rename_axis('B').reset_index(name='count'))
 
 print('\n------------')
 
-from dataframes.sales import sales
 
 # Drop duplicate store/type combinations
 store_types = sales.drop_duplicates(subset=['store', 'type'])
