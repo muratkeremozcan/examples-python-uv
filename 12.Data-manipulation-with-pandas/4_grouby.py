@@ -1,6 +1,6 @@
 # --- GroupBy made simple -----------------------------------------------------
-# Mental model: split → apply → combine
-# 1) Split rows into groups by key(s)
+# Mental model: split → apply → combine (index)[values]
+# 1) Split rows into groups by key(s) 
 # 2) Apply an aggregation per group (sum/mean/count/etc.)
 # 3) Combine results into a Series/DataFrame (index = group keys)
 

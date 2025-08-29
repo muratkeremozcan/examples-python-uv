@@ -1,6 +1,6 @@
 # KEY TAKEAWAYS:
 # - Use os.path to build file paths that work regardless of current directory
-# - groupby().sum() aggregates data by category
+# - groupby().sum() aggregates data by category (index)[value]
 # - Create calculated columns with simple arithmetic operations
 # - sort_values() orders data by column values
 # - to_csv() exports DataFrames back to CSV files
