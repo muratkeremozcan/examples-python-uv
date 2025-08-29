@@ -3,32 +3,37 @@
 # isnull() is identical to isna() for this purpose
 # can use .sum() for total number, .any() for boolean
 
-# When there are missing values we can do a few things
-# 1) one option is to remove the rows with missing values from the dataset
-# to drop rows with missing values use .dropna()
-# 2) another option is to fill the missing values with a specific value. For numeric values 0 is used
-# to fill missing values use .fillna(<value>)
+# Summary of strategies:
+# • dropna(): Remove missing data entirely (loses information)
+# • fillna(0): Simple but can distort distribution
+# • fillna(mean/median): More realistic, preserves distribution shape
+# • ffill/bfill: Good for time series where values change gradually
+# • Custom fills: Different strategies for different columns based on domain knowledge
+# • Use NaN if you want to keep track of "data was missing here"
+# • Use 0 fill if a missing value really means zero (e.g., "no avocados sold")
+# • Otherwise, filling with 0 can make it look like you had a lot of small values, which may mislead analysis
 
 import matplotlib.pyplot as plt
 from dataframes.avocados_2016 import avocados
+print(avocados)
 
-# use .isnull().sum() to check columns for missing values
+print('\nuse .isnull().any() to check columns for missing values\n')
 print(avocados.isnull().any())
-print()
+print('\nuse .isnull().sum() to check columns for missing values\n')
 print(avocados.isnull().sum())
 
-# when there are missing values we can do a few things
+print('\nwhen there are missing values we can do a few things')
 
-# 1) one option is to remove the rows with missing values from the dataset
+print('\n1) one option is to remove the rows with missing values from the dataset, use .dropna() :')
 avocados_complete = avocados.dropna()
-# when we check again, there should be no missing values
 print(avocados_complete.isna().any())
+print()
 
-# use .isnull().sum().plot(kind='bar') to plot missing values by variable
+print('\nuse .isnull().sum().plot(kind="bar") to plot missing values by variable (# Figure 1)')
 # if we look at the original, we can check the missing values
-avocados.isna().sum().plot(kind='bar') # Figure 1
-# since we dropped the missing values, this would show no missing values
-# avocados_complete.isna().sum().plot(kind='bar')
+avocados.isna().sum().plot(kind='bar') 
+plt.title('Figure 1: Missing Values by Column')
+plt.show()
 
 ######################
 
@@ -36,24 +41,62 @@ avocados.isna().sum().plot(kind='bar') # Figure 1
 # A histogram visualizes data distribution by grouping values into bins.
 # It helps identify patterns, spread, and outliers in numeric data.
 
-# 2) another option is to fill the missing values with a specific value. For numeric values 0 is used
-
 cols_with_missing = ['small_sold', 'large_sold', 'xl_sold']
 # 2.a) Create histograms showing the distributions cols_with_missing
-# Figure 2 : When you call .hist() on columns with NaNs, those missing rows are ignored. 
-# so the histogram only reflects the actual non-missing values.
+print('\nFigure 2 : When you call .hist() on columns with NaNs, those missing rows are ignored.')
+print('\nso the histogram only reflects the actual non-missing values.')
 avocados[cols_with_missing].hist() 
+plt.suptitle('Figure 2: Original Data Distribution (NaNs ignored)')
+plt.show()
 
-# 2.b) Then fill in missing values with 0
-# When you fill missing values with 0, you’re inserting actual zeros into the dataset.
-# Now the histogram treats those zeros as valid values.
-# This shifts the distribution: you’ll see extra bars piled up at 0 (or very low bins), because all the missing rows now contribute to the counts.
+print('\n2) another option is to fill the missing values with a specific value. For numeric values 0 is used, use .fillna(<value>)')
+print('\nWhen you fill missing values with 0, you\'re inserting actual zeros into the dataset.')
+print('Now the histogram treats those zeros as valid values.')
+print('This shifts the distribution: you\'ll see extra bars piled up at 0 (or very low bins), because all the missing rows now contribute to the counts.')
+print('\nFigure 3:')
 avocados_filled = avocados.fillna(0)
-# Create histograms of the filled columns
 avocados_filled[cols_with_missing].hist() # Figure 3 : shows us missing values where Y axis is 0
+plt.suptitle('Figure 3: Distribution After Filling with 0')
+plt.show()
+
+print('\n3) Fill with statistical measures - more realistic than 0')
+print('\n3a) Fill with mean: .fillna(df.mean()) - good for normally distributed data')
+avocados_mean_filled = avocados.fillna(avocados.mean(numeric_only=True))
+print('Small sold mean:', avocados['small_sold'].mean())
+print('Large sold mean:', avocados['large_sold'].mean())
+
+print('\n3b) Fill with median: .fillna(df.median()) - less effected by outliers')
+avocados_median_filled = avocados.fillna(avocados.median(numeric_only=True))
+print('Small sold median:', avocados['small_sold'].median())
+print('Large sold median:', avocados['large_sold'].median())
+
+print('\nFigure 4: Distribution After Filling with Median')
+avocados_median_filled[cols_with_missing].hist()
+plt.suptitle('Figure 4: Distribution After Filling with Median')
+plt.show()
+
+print('\n4) Forward fill (ffill) and backward fill (bfill) - good for time series')
+print('\n4a) Forward fill: .ffill() - use previous value')
+avocados_ffill = avocados.ffill()
+print('Forward fill carries the last known value forward')
+
+print('\n4b) Backward fill: .bfill() - use next value')
+avocados_bfill = avocados.bfill()
+print('Backward fill uses the next known value to fill backwards')
+
+print('\nFigure 5: Distribution After Forward Fill')
+avocados_ffill[cols_with_missing].hist()
+plt.suptitle('Figure 5: Distribution After Forward Fill')
+plt.show()
+
+print('\n5) Fill specific columns differently')
+fill_values = {
+    'small_sold': avocados['small_sold'].median(),
+    'large_sold': avocados['large_sold'].median(),
+    'xl_sold': 0  # Maybe xl_sold missing really means 0
+}
+avocados_custom_fill = avocados.fillna(value=fill_values)
+print('Custom fill: median for small/large, 0 for xl_sold')
 
 plt.show()
 
-# •	Use NaN if you want to keep track of “data was missing here” (so you don’t distort the distribution).
-# •	Use 0 fill if a missing value really means zero (e.g., “no avocados sold”).
-# •	Otherwise, filling with 0 can make it look like you had a lot of small values, which may mislead analysis.

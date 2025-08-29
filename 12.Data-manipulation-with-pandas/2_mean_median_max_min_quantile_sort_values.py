@@ -11,6 +11,8 @@ from dataframes.sales_short import sales_short
 # Column-oriented structure makes these operations very fast (vectorized)
 
 print(sales.head())
+
+print('\ninfo():')
 print(sales.info())
 
 print('\nmean():')
