@@ -25,8 +25,7 @@ print(clean_string2(raw_text))
 # one liner like arrow function
 
 
-def clean_string3(text):
-    return text.replace(" ", "_").lower()
+clean_string3 = lambda text: text.replace(" ", "_").lower()
 
 
 print(clean_string3(raw_text))
