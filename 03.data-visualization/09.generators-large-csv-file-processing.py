@@ -1,6 +1,7 @@
 # Reading Files in Chunks vs. Whole File
 # •	Reading an entire file at once can be memory-intensive.
 # •	Reading line-by-line (chunking) reduces memory usage.
+# •	Use full-file reads only when the file is small; otherwise stream.
 
 # Using a Dictionary for Counting Occurrences
 # •	{key: count} structure is useful for counting occurrences of unique values in a dataset.
@@ -8,12 +9,14 @@
 # Generators for Efficient File Handling
 # •	Instead of storing all lines in memory, generators (yield) read data lazily (on demand).
 # •	Useful when processing large datasets without exhausting memory.
+# •	Meta takeaway: for big files, streaming (chunks/generators) is the safest default.
+# •	Use this file when you want a stdlib-only streaming pattern (no pandas dependency).
 
 # How read_large_file() Works
 # •	Reads one line at a time, then yields it for processing.
 # •	Stops reading when the end of the file is reached.
 
-# Open a connection to the file
+# Open a connection to the file (small, bounded read: first 10 rows)
 with open("world_indicators_simple.csv", "r") as file:
 
     # Skip the column names (first line)
@@ -64,7 +67,7 @@ def read_large_file(file_object):
         yield data
 
 
-# Open a connection to the file
+# Open a connection to the file (stream the whole file lazily)
 with open("world_indicators_simple.csv") as file:
     # Create a generator object for the file: gen_file
     gen_file = read_large_file(file)

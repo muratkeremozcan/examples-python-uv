@@ -8,7 +8,6 @@ fellowship = ["frodo", "samwise", "merry", "aragorn", "legolas", "boromir", "gim
 
 # LIST COMPREHENSION VS GENERATOR EXPRESSION
 # [output_if_true | for variable in iterable | if condition]
-# (output_if_true | for variable in iterable | if condition)
 
 # List comprehension: stores all elements in memory immediately
 fellow1 = [member for member in fellowship if len(member) >= 7]
