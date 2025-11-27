@@ -4,6 +4,7 @@
 # - `zip()` pairs values from multiple columns, useful for calculations.
 # - Use list comprehensions to efficiently compute new columns.
 # - Use `df.plot(kind='scatter', x=..., y=...)` to visualize data.
+# - Pick this approach when you're already using pandas and want chunked DataFrame processing; use 09.generators... for stdlib-only streaming.
 
 import os
 
