@@ -1,3 +1,5 @@
+# Meta: prefer these stdlib iterators (range/enumerate/map) when data fits in memory
+# and you don’t need heavy numeric ops; they’re lazy, dependency-free, and efficient.
 # - Use range(start, stop, step) to generate sequences; convert to lists with list(...) or [*...] (unpack/flatten)
 
 # in python:

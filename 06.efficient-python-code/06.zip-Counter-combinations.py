@@ -1,8 +1,8 @@
 # zip() is useful for combining multiple iterables element-wise into a single iterable of tuples.
 # Using *zip() unzips the data, effectively reversing zip().
 # Use collections.Counter to easily tally frequencies: Counter(list/array)
-# itertools.combinations efficiently generates all unique combinations: combinations(list/array, 2)
 
+# itertools.combinations efficiently generates all unique combinations: combinations(list/array, 2)
 # Combination(n, r) = n! / r! (n - r)!   (order doesn't matter)
 # Permutation(n, r) = n! /    (n - r)!      (order matters)
 

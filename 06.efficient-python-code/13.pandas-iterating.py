@@ -1,6 +1,14 @@
 # .iloc is useful for row/column access by position, but not optimal for performance.
 # Vectorized NumPy operations are fastest — they operate on full arrays at once and avoid Python loops.
 
+# Vectorization means letting array/dataframe operations run in native C/NumPy/pandas routines over whole columns/arrays at once 
+# instead of looping in Python row by row. 
+# You write expressions like arr * 2, df["a"] + df["b"], or np.mean(arr, axis=1) and the library does the per-element work under the hood in compiled code. 
+# Result: much faster and usually clearer, no explicit Python for-loops.
+
+
+# Meta: prefer NumPy/pandas vectorization first. If you must loop rows, .itertuples() is the least slow; .apply(axis=1) is convenient but slower.
+
 # Performance ranking (fastest → slowest):
 # 1.	✅ NumPy vectorization
 # 2.	🟡 .itertuples()
@@ -18,6 +26,11 @@
 # •	Performance matters more than flexibility (it’s faster than .iterrows()).
 # •	Vectorization isn’t possible.
 
+
+# JS usually gets a pass because most frontend work isn’t CPU-heavy and you’re already in a JIT’d runtime. When you
+#   do need speed, you reach for typed arrays/WebGL/wasm or libraries like TensorFlow.js/Lodash—but there’s no built-in
+#   NumPy equivalent, so “vectorization” is less idiomatic. In Python’s data stack, these choices matter a lot because
+#   pure-Python loops are slow and NumPy/pandas give you compiled paths for big arrays.
 
 import numpy as np
 import pandas as pd
@@ -92,6 +105,9 @@ print(win_perc_preds_loop, "\n")
 
 
 # (approach 3 - fastest) # using NumPy
+# .values turns the pandas columns into NumPy arrays,
+# predict_win_perc runs NumPy ops (RS**2, RA**2, np.round) on those arrays element-wise.
+# That combination is the vectorized/NumPy path.
 win_perc_preds_np = predict_win_perc(baseball_df["RS"].values, baseball_df["RA"].values)
 
 baseball_df["WP_preds"] = win_perc_preds_np

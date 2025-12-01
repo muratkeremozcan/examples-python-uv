@@ -1,4 +1,6 @@
 # .iterrows()  lets you loop through a DataFrame row by row
+# .iterrows() loops rows as Series (slow, but flexible). 
+# Use when you truly need row-wise access and can’t vectorize/itertuples.
 
 import pandas as pd
 

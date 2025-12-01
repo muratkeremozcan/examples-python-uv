@@ -1,3 +1,5 @@
+# Meta: choose NumPy for numeric-heavy, vectorized operations on homogeneous data;
+# arrays are compact and fast for math compared to Python lists.
 # A numpy array contains homogeneous data types (which reduces memory consumption)
 # numpy provides the ability to apply operations on all elements
 

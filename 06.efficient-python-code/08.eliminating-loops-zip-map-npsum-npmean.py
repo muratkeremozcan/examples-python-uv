@@ -3,6 +3,10 @@
 # zip() cleanly pairs data like names and stats or generations.
 # NumPy shines for numeric ops — use np.sum and np.mean with axis=1 for row-wise/horizontal calcs.
 
+# Meta: Prefer vectorized/iterator patterns over explicit loops.
+# Use comprehensions/map for clean transforms, zip to align columns,
+# NumPy for fast row/col math (np.sum/np.mean axis=1) — calling .values or np.array turns columns into NumPy arrays so math runs in C instead of Python loops.
+
 poke_names = [
     "Abomasnow",
     "Abra",
@@ -1517,6 +1521,8 @@ for pokemon, row in zip(poke_names, stats):
 
 # Eliminate the above for loop
 
+# stats is already a NumPy array; np.sum/np.mean with axis=1 vectorize across rows
+# (if this were a pandas DataFrame, you'd do df.values or np.array(df) first).
 total_stats_np = np.sum(stats, axis=1)
 avg_stats_np = np.mean(stats, axis=1)
 poke_list_np = [*zip(poke_names, total_stats_np, avg_stats_np)]

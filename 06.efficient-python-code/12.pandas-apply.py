@@ -1,4 +1,7 @@
-# 	.apply() is used to apply a function to a dataframe
+# apply() is used to apply a function to a dataframe
+# .apply() (axis=1) is convenient but slower than vectorization/itertuples;
+# use for row-wise logic that’s hard to vectorize.
+
 # axis=0: vertical, down the DataFrame → column-wise result
 # axis=1: horizontal, across the DataFrame → row-wise result
 # [['a', 'b']].apply to select certain columns

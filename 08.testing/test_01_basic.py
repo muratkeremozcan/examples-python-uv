@@ -1,9 +1,9 @@
 # need to add a context for an exception test: with pytest.raises(ValueError):
-# run a single file:  poetry run pytest 08.testing/test_01_basic.py
-# run a single test:  poetry run pytest -k "test_zero", poetry run pytest -k "numbers"
 # @pytest.mark.skip # you can use test markers
 # @pytest.mark.skipif('2 * 2 = 5') # skip with a condition
 # @pytest.mark.xfail # expect to fail
+# run a single file:  uv run pytest 08.testing/test_01_basic.py   # or just `pytest ...` if .venv is active
+# run a single test:  uv run pytest -k "test_zero"                # or e.g. uv run pytest -k "numbers"
 from datetime import datetime
 
 import pytest
