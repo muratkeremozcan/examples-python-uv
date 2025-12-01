@@ -2,7 +2,7 @@
 # computed properties (like mass_to_flipper_length_ratio) can be defined
 # using @property (like getter in TS)
 
-from dataclasses import asdict, astuple, dataclass
+from dataclasses import dataclass
 
 
 @dataclass

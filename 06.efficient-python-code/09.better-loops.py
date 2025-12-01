@@ -2,6 +2,8 @@
 # Push any one‑off work out of your loops (e.g. computing means, std‑devs, lengths, total counts, etc.)
 # When you do need to iterate, lean on comprehensions, map/filter, itertools or NumPy vectorization instead of raw for‑loops.
 
+# Meta: avoid loops when you can; if you must loop, precompute invariants and prefer comprehensions/itertools/NumPy over raw for-loops.
+
 from collections import Counter
 
 generations = [
