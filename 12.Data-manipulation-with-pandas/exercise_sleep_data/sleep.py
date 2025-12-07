@@ -23,12 +23,12 @@ print()
 
 # Which occupation has the lowest average sleep duration? 
 # Save this in a string variable called lowest_sleep_occ.
-lowest_sleep_occ = df.groupby('Occupation')['Sleep Duration'].mean().idxmin()  # [index](value)
+lowest_sleep_occ = df.groupby('Occupation')['Sleep Duration'].mean().idxmin()  # (index)[value]
 print("\nOccupation with lowest average sleep duration:", lowest_sleep_occ)
 
 # Which occupation has the lowest average sleep quality?
 # Save this in a string variable called lowest_sleep_quality_occ
-avg_quality_by_occ = df.groupby('Occupation')['Quality of Sleep'].mean().sort_values()  # [index](value)
+avg_quality_by_occ = df.groupby('Occupation')['Quality of Sleep'].mean().sort_values()  # (index)[value]
 print('\nAverage quality by occupation: \n', avg_quality_by_occ)
 lowest_sleep_quality_occ = avg_quality_by_occ.idxmin()
 print("\nOccupation with lowest average sleep quality:", lowest_sleep_quality_occ)
