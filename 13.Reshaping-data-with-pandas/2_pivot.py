@@ -1,8 +1,8 @@
 # Pivot quick guide (why/when + how)
 # - Long (tidy): one row per entity-measure pair; best for plotting, grouped stats, model inputs.
 # - Wide: one row per entity with many measure columns; useful for time-series columns, quick comparisons, spreadsheet-style scans.
-# - Use pivot for long -> wide: pivot(index=<rows>, columns=<new cols>, values=<cell values>); missing combos become NaN; duplicate index+column pairs raise.
-# - To pivot multiple measures, pass a list to values or omit values for all columns (gives MultiIndex columns).
+# - Use pivot for long -> wide: pivot(index=<rows>, columns=<new cols>, values=<cell values>); 
+# missing combos become NaN; duplicate index+column pairs raise.
 
 
 import pandas as pd
@@ -70,6 +70,7 @@ print(fifa_overall)
 # L. Messi                  96       92        92
 
 # Pivot fifa_players to get attacking scores indexed by name and identified by movement
+# pivot(index=<rows>, columns=<new cols>, values=<cell values>); 
 fifa_attacking = fifa_players.pivot(index='name', columns='movement', values='attacking')
 print(fifa_attacking)
 # movement           dribbling  passing  shooting
@@ -78,6 +79,7 @@ print(fifa_attacking)
 # L. Messi                  88       92        70
 
 # Use the pivot method to get overall scores indexed by movement and identified by name
+# pivot(index=<rows>, columns=<new cols>, values=<cell values>); 
 fifa_names = fifa_players.pivot(index='movement', columns='name', values='overall')
 print(fifa_names)
 # name       Cristiano Ronaldo  L. Messi
@@ -85,3 +87,34 @@ print(fifa_names)
 # dribbling                 89        96
 # passing                   82        92
 # shooting                  93        92
+
+# Pivot fifa_players to get overall and attacking scores indexed by name and identified by movement
+# pivot(index=<rows>, columns=<new cols>, values=<cell values>);
+fifa_over_attack = fifa_players.pivot(index='name', 
+                                      columns='movement', 
+                                      values=['overall', 'attacking'])
+print(fifa_over_attack)
+#                     overall                  attacking                 
+# movement          dribbling passing shooting dribbling passing shooting
+# name                                                                   
+# Cristiano Ronaldo        89      82       93        84      83       89
+# L. Messi                 96      92       92        88      92       70
+
+# Drop the fifth row to delete all repeated rows
+fifa_no_rep = fifa_players.drop(4, axis=0)
+print(fifa_no_rep)
+#                 name   movement  overall  attacking
+# 0           L. Messi   shooting       92         70
+# 1  Cristiano Ronaldo   shooting       93         89
+# 2           L. Messi    passing       92         92
+# 3  Cristiano Ronaldo    passing       82         83
+# 5  Cristiano Ronaldo  dribbling       89         84
+# 6           L. Messi  dribbling       88         97
+
+# Pivot fifa players to get all scores by name and movement
+fifa_pivot = fifa_no_rep.pivot(index='name', columns='movement') 
+#                     overall                  attacking                 
+# movement          dribbling passing shooting dribbling passing shooting
+# name                                                                   
+# Cristiano Ronaldo        89      82       93        84      83       89
+# L. Messi                 88      92       92        97      92       70
