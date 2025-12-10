@@ -61,7 +61,7 @@ fifa_players = pd.DataFrame(
 # 5  Cristiano Ronaldo  dribbling       89         84
 
 
-# Pivot fifa_players to get overall scores indexed by name and identified by movement
+# Pivot overall: rows=name, cols=movement, cells=overall score
 fifa_overall = fifa_players.pivot(index="name", columns="movement", values="overall")
 print(fifa_overall)
 # movement           dribbling  passing  shooting
@@ -69,18 +69,16 @@ print(fifa_overall)
 # Cristiano Ronaldo         89       82        93
 # L. Messi                  96       92        92
 
-# Pivot fifa_players to get attacking scores indexed by name and identified by movement
-# pivot(index=<rows>, columns=<new cols>, values=<cell values>); 
-fifa_attacking = fifa_players.pivot(index='name', columns='movement', values='attacking')
+# Same idea for attacking scores
+fifa_attacking = fifa_players.pivot(index="name", columns="movement", values="attacking")
 print(fifa_attacking)
 # movement           dribbling  passing  shooting
 # name                                           
 # Cristiano Ronaldo         84       83        89
 # L. Messi                  88       92        70
 
-# Use the pivot method to get overall scores indexed by movement and identified by name
-# pivot(index=<rows>, columns=<new cols>, values=<cell values>); 
-fifa_names = fifa_players.pivot(index='movement', columns='name', values='overall')
+# Flip perspective: rows=movement, cols=name
+fifa_names = fifa_players.pivot(index="movement", columns="name", values="overall")
 print(fifa_names)
 # name       Cristiano Ronaldo  L. Messi
 # movement                              
@@ -88,11 +86,10 @@ print(fifa_names)
 # passing                   82        92
 # shooting                  93        92
 
-# Pivot fifa_players to get overall and attacking scores indexed by name and identified by movement
-# pivot(index=<rows>, columns=<new cols>, values=<cell values>);
-fifa_over_attack = fifa_players.pivot(index='name', 
-                                      columns='movement', 
-                                      values=['overall', 'attacking'])
+# Pivot multiple value columns at once → MultiIndex columns (metric, movement)
+fifa_over_attack = fifa_players.pivot(
+    index="name", columns="movement", values=["overall", "attacking"]
+)
 print(fifa_over_attack)
 #                     overall                  attacking                 
 # movement          dribbling passing shooting dribbling passing shooting
@@ -100,7 +97,18 @@ print(fifa_over_attack)
 # Cristiano Ronaldo        89      82       93        84      83       89
 # L. Messi                 96      92       92        88      92       70
 
-# Drop the fifth row to delete all repeated rows
+
+# Omitting values pivots all remaining columns, also yielding MultiIndex columns
+fifa_all = fifa_players.pivot(index="name", columns="movement")
+print(fifa_all)
+#                    overall                  attacking                 
+# movement          dribbling passing shooting dribbling passing shooting
+# name                                                                   
+# Cristiano Ronaldo        89      82       93        84      83       89
+# L. Messi                 96      92       92        88      92       70
+
+
+# Example of handling duplicates: dropping a row to avoid duplicate (name, movement) pairs
 fifa_no_rep = fifa_players.drop(4, axis=0)
 print(fifa_no_rep)
 #                 name   movement  overall  attacking
@@ -112,7 +120,7 @@ print(fifa_no_rep)
 # 6           L. Messi  dribbling       88         97
 
 # Pivot fifa players to get all scores by name and movement
-fifa_pivot = fifa_no_rep.pivot(index='name', columns='movement') 
+fifa_pivot = fifa_no_rep.pivot(index="name", columns="movement")
 #                     overall                  attacking                 
 # movement          dribbling passing shooting dribbling passing shooting
 # name                                                                   
