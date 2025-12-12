@@ -15,11 +15,23 @@ demo = pd.DataFrame({
 
 print("Original demo:")
 print(demo)
+#   type  is_holiday  weekly_sales
+# 0    A       False           100
+# 1    A        True           120
+# 2    B       False            80
+# 3    B       False           140
+# 4    C        True            60
 
 # 1) Sum per type (equivalent to: demo.groupby('type')['weekly_sales'].sum())
+# (foo, row, value)
 print("\nSum per type (pivot_table):")
 sum_by_type = pd.pivot_table(demo, index='type', values='weekly_sales', aggfunc='sum')
 print(sum_by_type)
+#       weekly_sales
+# type              
+# A              220
+# B              220
+# C               60
 
 # 2) Multiple aggregations per group (flatten MultiIndex columns afterward)
 print("\nAggregations per type (pivot_table with multiple agg funcs):")
@@ -31,11 +43,22 @@ agg_by_type = pd.pivot_table(
 )
 agg_by_type.columns = ['total_sales', 'avg_sales', 'n_weeks']  # flatten & rename for readability
 print(agg_by_type)
+#       total_sales  avg_sales  n_weeks
+# type                                 
+# A             220      110.0        2
+# B             220      110.0        2
+# C              60       60.0        1
 
 # 3) Percent share by type (using the single-agg table)
 print("\nPercent share by type:")
 share_by_type = sum_by_type['weekly_sales'] / sum_by_type['weekly_sales'].sum()
 print(share_by_type)
+# type
+# A    0.44
+# B    0.44
+# C    0.12
+# Name: weekly_sales, dtype: float64
+
 
 # 4) Two keys → spread second key into columns (matrix layout)
 print("\nTwo keys → index='type', columns='is_holiday', values='weekly_sales':")
@@ -49,10 +72,21 @@ agg_by_type_holiday = pd.pivot_table(
     margins=True    # add totals row/column
 )
 print(agg_by_type_holiday)
+# is_holiday  False  True  All
+# type                        
+# A             100   120  220
+# B             220     0  220
+# C               0    60   60
+# All           320   180  500
 
 # 5) Want columns instead of index? Reset index (similar to groupby(..., as_index=False))
 print("\nAs columns (not index): reset_index():")
 print(sum_by_type.reset_index())
+#   type  weekly_sales
+# 0    A           220
+# 1    B           220
+# 2    C            60
+
 
 # Notes:
 # - groupby equivalent for #4 is: demo.groupby(['type','is_holiday'])['weekly_sales'].sum().unstack(fill_value=0)
@@ -60,7 +94,7 @@ print(sum_by_type.reset_index())
 
 
 
-##########
+#####################################
 
 from dataframes.sales import sales
 import numpy as np

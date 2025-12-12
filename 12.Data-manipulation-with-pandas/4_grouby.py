@@ -14,11 +14,25 @@ demo = pd.DataFrame({
 })
 print("Original dataframe:")
 print(demo)
+#   type  is_holiday  weekly_sales
+# 0    A       False           100
+# 1    A        True           120
+# 2    B       False            80
+# 3    B       False           140
+# 4    C        True            60
 
+# 1) Sum per type 
+# foo.groupby('row')['value']
 print("\nSum per type → Series indexed by 'type':")
 sum_by_type = demo.groupby('type')['weekly_sales'].sum()
 print(sum_by_type)
+# type
+# A    220
+# B    220
+# C     60
+# Name: weekly_sales, dtype: int64
 
+# 2) Multiple aggregations per grou
 print("\nAggregations per type Multiple aggregations per group → DataFrame with named columns:")
 agg_by_type = demo.groupby('type').agg(
     total_sales=('weekly_sales', 'sum'),
@@ -26,11 +40,23 @@ agg_by_type = demo.groupby('type').agg(
     n_weeks=('weekly_sales', 'size'),
 )
 print(agg_by_type)
+#       total_sales  avg_sales  n_weeks
+# type                                 
+# A             220      110.0        2
+# B             220      110.0        2
+# C              60       60.0        1
 
+# 3) Percent share by type
 print("\nPercent share by type:")
 share_by_type = agg_by_type['total_sales'] / agg_by_type['total_sales'].sum()
 print(share_by_type)
+# type
+# A    0.44
+# B    0.44
+# C    0.12
+# Name: total_sales, dtype: float64
 
+# 4) Two keys
 print('\nGroup by two keys → MultiIndex; reset_index() to get normal columns:')
 sum_by_type_holiday_demo = (
     demo.groupby(['type', 'is_holiday'])['weekly_sales']
@@ -38,17 +64,27 @@ sum_by_type_holiday_demo = (
         .reset_index()
 )
 print(sum_by_type_holiday_demo)
+#   type  is_holiday  weekly_sales
+# 0    A       False           100
+# 1    A        True           120
+# 2    B       False           220
+# 3    C        True            60
+
 
 print("\nIf you want columns (not index), use as_index=False:")
 sum_by_type_df = demo.groupby('type', as_index=False)['weekly_sales'].sum()
 print(sum_by_type_df)
+#   type  weekly_sales
+# 0    A           220
+# 1    B           220
+# 2    C            60
 
 # Pitfall: dividing a Python list by a number fails; use a Series
 # pd.Series([sales_A, sales_B, sales_C], index=['A','B','C']) / sales_all
 
 
 
-
+#####################################
 
 # Calc total weekly sales
 sales_all = sales["weekly_sales"].sum()
