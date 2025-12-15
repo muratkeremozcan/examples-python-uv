@@ -59,7 +59,6 @@ print(share_by_type)
 # C    0.12
 # Name: weekly_sales, dtype: float64
 
-
 # 4) Two keys → spread second key into columns (matrix layout)
 print("\nTwo keys → index='type', columns='is_holiday', values='weekly_sales':")
 agg_by_type_holiday = pd.pivot_table(
@@ -94,7 +93,7 @@ print(sum_by_type.reset_index())
 
 
 
-#####################################
+##########
 
 from dataframes.sales import sales
 import numpy as np

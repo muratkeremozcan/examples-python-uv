@@ -1,6 +1,7 @@
-# - pivot reshapes only when each index/column pair is unique; it cannot aggregate.
-# - pivot_table reshapes and aggregates duplicates via aggfunc (default mean, but
-#   you should state it).
+# - pivot reshapes long -> wide only when each index/column pair is unique; it cannot aggregate duplicates.
+# - pivot_table reshapes and aggregates duplicates via aggfunc (default mean, but you should state it) —
+#   use this when you need summary stats or have repeats.
+
 # Extra pivot_table features: multiple agg funcs, multi-index inputs/outputs,
 # margins=True for totals, omit values to aggregate all numeric columns.
 
@@ -15,7 +16,7 @@ fifa_players = pd.DataFrame(
             "Cristiano Ronaldo",
             "L. Messi",
             "Cristiano Ronaldo",
-						"L. Messi"
+            "L. Messi",
         ],
         "movement": [
             "shooting",
@@ -24,7 +25,7 @@ fifa_players = pd.DataFrame(
             "passing",
             "dribbling",
             "dribbling",
-						"dribbling"
+            "dribbling",
         ],
         "overall": [92, 93, 92, 82, 96, 89, 88],
         "attacking": [70, 89, 92, 83, 88, 84, 97],
@@ -95,4 +96,3 @@ fifa_pivot_table = fifa_players.pivot_table(
 print("\nPivot table output (aggregated):\n")
 print(fifa_pivot_table)
 print('\n')
-
