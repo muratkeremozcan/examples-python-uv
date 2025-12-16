@@ -1,6 +1,6 @@
 # Pivot quick guide (why/when + how)
-# - Long (tidy): one row per entity-measure pair; best for plotting, grouped stats, model inputs.
-# - Wide: one row per entity with many measure columns; useful for time-series columns, quick comparisons, spreadsheet-style scans.
+# - Wide: many measure columns; useful for time-series columns, quick comparisons, spreadsheet-style scans.
+# - Long (tidy): one row per entity; best for plotting, grouped stats, model inputs.
 # - Use pivot for long -> wide: pivot(index=<rows>, columns=<new cols>, values=<cell values>); 
 # missing combos become NaN; duplicate index+column pairs raise.
 
@@ -15,6 +15,7 @@ weight_long = pd.DataFrame(
         "Weight": [80, 65, 68, 83, 71],
     }
 )
+# long data
 #    Name  Year  Weight
 # 0  John  2013      80
 # 1  Mary  2013      65
@@ -22,6 +23,8 @@ weight_long = pd.DataFrame(
 # 3  John  2014      83
 # 4  Laura 2014      71
 
+# use .pivot to convert long to wide
+# pivot(rows, cols, values)
 weight_wide = weight_long.pivot(index="Year", columns="Name", values="Weight")
 # Name  John  Laura  Mary
 # Year                  
@@ -61,7 +64,7 @@ fifa_players = pd.DataFrame(
 # 5  Cristiano Ronaldo  dribbling       89         84
 
 
-# Pivot overall: rows=name, cols=movement, cells=overall score
+# Pivot overall: rows=name, cols=movement, values=overall score
 fifa_overall = fifa_players.pivot(index="name", columns="movement", values="overall")
 print(fifa_overall)
 # movement           dribbling  passing  shooting
