@@ -95,4 +95,9 @@ fifa_pivot_table = fifa_players.pivot_table(
 )
 print("\nPivot table output (aggregated):\n")
 print(fifa_pivot_table)
-print('\n')
+#                    attacking                               overall                     
+# movement           dribbling passing shooting        All dribbling passing shooting All
+# name                                                                                   
+# Cristiano Ronaldo  84.000000    83.0     89.0  85.333333      89.0    82.0     93.0  93
+# L. Messi           92.500000    92.0     70.0  86.750000      96.0    92.0     92.0  96
+# All                89.666667    87.5     79.5  86.142857      96.0    92.0     93.0  96
