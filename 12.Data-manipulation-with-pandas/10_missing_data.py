@@ -1,17 +1,9 @@
-# use .isnull().sum() to check columns for missing values
-# use .isnull().sum().plot(kind='bar') to plot missing values by variable
-# isnull() is identical to isna() for this purpose
-# can use .sum() for total number, .any() for boolean
-
-# Summary of strategies:
-# • dropna(): Remove missing data entirely (loses information)
-# • fillna(0): Simple but can distort distribution
-# • fillna(mean/median): More realistic, preserves distribution shape
-# • ffill/bfill: Good for time series where values change gradually
-# • Custom fills: Different strategies for different columns based on domain knowledge
-# • Use NaN if you want to keep track of "data was missing here"
-# • Use 0 fill if a missing value really means zero (e.g., "no avocados sold")
-# • Otherwise, filling with 0 can make it look like you had a lot of small values, which may mislead analysis
+# Missing-data + reshape cheat sheet:
+# - stack/dropna: stack drops all-NaN rows by default; set dropna=False to keep them.
+# - unstack/fill_value: unstack can create NaNs when groups lack labels; use fill_value to plug a default.
+# - fillna(): replace NaNs after stacking/unstacking (0/mean/median or custom per column).
+# - isna()/isnull(): check for NaNs; .sum() counts, .any() flags presence.
+# - Plots: hist ignores NaNs; filling zeros changes the distribution (piles at 0).
 
 import matplotlib.pyplot as plt
 from dataframes.avocados_2016 import avocados
@@ -99,4 +91,3 @@ avocados_custom_fill = avocados.fillna(value=fill_values)
 print('Custom fill: median for small/large, 0 for xl_sold')
 
 plt.show()
-
