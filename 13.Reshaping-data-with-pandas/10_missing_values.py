@@ -1,11 +1,9 @@
 import pandas as pd
 
-# Missing-data reshaping takeaways:
-# - unstack can create NaNs when row subgroups lack matching labels; 
-#  fill with fill_value or later fillna.
-
-# - stack drops all-NaN rows by default (dropna=True); 
-#  set dropna=False to keep the full cartesian result, then fillna as needed.
+# Missing-data reshaping takeaways tied to this example:
+# - unstack can introduce NaNs when a subgroup lacks a churn flag; fill_value avoids that.
+# - stack drops all-NaN rows by default; dropna=False keeps empty combos so you can fill them.
+# - fillna plugs gaps explicitly (we use 0).
 
 churn = pd.DataFrame(
     [
@@ -47,7 +45,7 @@ churn = pd.DataFrame(
 # NY    Yes                Yes             False          120.000             78.000
 # LA    Yes                Yes             False           71.000            101.000
 
-# Unstack churn level and fill missing values with zero
+# Unstack churn level and fill missing values with zero (avoids NaNs for missing churn rows).
 churn = churn.unstack(level="churn", fill_value=0)
 
 # Sort by descending voice mail plan and ascending international plan
@@ -65,18 +63,74 @@ churn_sorted = churn.sort_index(level=["voice_mail_plan", "international_plan"],
 # LA    Yes                No                       78.000   69.0            90.000  104.0
 # NY    Yes                No                      109.000   87.0            99.000  113.0
 
-# Stack the level type from churn
-churn_stack = churn.stack(level="type", dropna=False)
+# Build a column MultiIndex so we can demo stack/dropna=False on real levels.
+churn.columns = pd.MultiIndex.from_product(
+    [["call"], ["day", "night"], [False, True]], names=["type", "scope", "churn"]
+)
+# type                                         call                       
+# scope                                         day           night       
+# churn                                       False  True     False  True 
+# state international_plan voice_mail_plan                                
+# LA    No                 No               106.818  100.0   96.909  119.0
+#                          Yes              100.000    0.0   84.250    0.0
+#       Yes                No                78.000   69.0   90.000  104.0
+#                          Yes               71.000    0.0  101.000    0.0
+# NY    No                 No                90.900   95.0  100.800  101.5
+#                          Yes              115.000    0.0  121.000    0.0
+#       Yes                No               109.000   87.0   99.000  113.0
+#                          Yes              120.000    0.0   78.000    0.0
 
-# Fill the resulting missing values with zero 
-churn_fill = churn_stack.fillna(0)
+# Introduce a missing combo to create NaNs after stacking.
+churn.loc[("NY", "Yes", "No"), ("call", "day", True)] = pd.NA
+# type                                         call                       
+# scope                                         day           night       
+# churn                                       False  True     False  True 
+# state international_plan voice_mail_plan                                
+# LA    No                 No               106.818  100.0   96.909  119.0
+#                          Yes              100.000    0.0   84.250    0.0
+#       Yes                No                78.000   69.0   90.000  104.0
+#                          Yes               71.000    0.0  101.000    0.0
+# NY    No                 No                90.900   95.0  100.800  101.5
+#                          Yes              115.000    0.0  121.000    0.0
+#       Yes                No               109.000    NaN   99.000  113.0
+#                          Yes              120.000    0.0   78.000    0.0
 
 
-# Stack the level scope without dropping rows with missing values
-churn_stack = churn.stack(level="scope", dropna=False)
-
-# Fill the resulting missing values with zero
-churn_fill = churn_stack.fillna(0)
-
-# Print churn_fill
-print(churn_fill)
+# Stack scope+churn; dropna=False keeps empty combos, then fill to make gaps explicit.
+churn_stacked = churn.stack(level=["scope", "churn"], dropna=False)
+churn_filled = churn_stacked.fillna(0)
+print(churn_filled)
+# type                                                     call
+# state international_plan voice_mail_plan scope churn         
+# LA    No                 No              day   False  106.818
+#                                                True   100.000
+#                                          night False   96.909
+#                                                True   119.000
+#                          Yes             day   False  100.000
+#                                                True     0.000
+#                                          night False   84.250
+#                                                True     0.000
+#       Yes                No              day   False   78.000
+#                                                True    69.000
+#                                          night False   90.000
+#                                                True   104.000
+#                          Yes             day   False   71.000
+#                                                True     0.000
+#                                          night False  101.000
+#                                                True     0.000
+# NY    No                 No              day   False   90.900
+#                                                True    95.000
+#                                          night False  100.800
+#                                                True   101.500
+#                          Yes             day   False  115.000
+#                                                True     0.000
+#                                          night False  121.000
+#                                                True     0.000
+#       Yes                No              day   False  109.000
+#                                                True     0.000
+#                                          night False   99.000
+#                                                True   113.000
+#                          Yes             day   False  120.000
+#                                                True     0.000
+#                                          night False   78.000
+#                                                True     0.000
