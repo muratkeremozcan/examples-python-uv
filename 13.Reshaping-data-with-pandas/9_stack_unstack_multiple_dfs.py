@@ -9,6 +9,16 @@ import pandas as pd
 #   unstacking, the last level becomes the innermost column level.
 # - Chaining: swap → unstack (or unstack → swap) lets you control which levels end up
 #   on rows vs columns without rewriting the data.
+# - Missing data note: unstack can introduce NaNs when combos don’t exist; use
+#   fill_value on unstack or fillna afterward. stack drops all-NaN rows by default
+#   (dropna=True); set dropna=False to keep the full cartesian set.
+
+# Missing-data reshaping takeaways:
+# - unstack can create NaNs when row subgroups lack matching labels; 
+#  fill with fill_value or later fillna.
+
+# - stack drops all-NaN rows by default (dropna=True); 
+#  set dropna=False to keep the full cartesian result, then fillna as needed.
 
 
 columns = pd.MultiIndex.from_product(
@@ -106,3 +116,34 @@ churn_switch = churn_py.swaplevel(0, 1, axis=1)
 # 											2020        NaN      0.0        NaN      1.0
 # 						voicemail 2019        NaN      0.0        NaN      0.0
 # 											2020        NaN      1.0        NaN      0.0
+
+# Missing-data handling on the reshaped output:
+# - fill NaNs created by unstack with a default (e.g., 0) if absent combos should be treated as zero.
+churn_unstack_filled = churn_unstack.fillna(0)
+# year              2019                                                                                                                    2020                                                                                                             
+# plan           minutes                               voicemail                                    data                                 minutes                               voicemail                                    data                             
+# exited           churn            no_churn               churn            no_churn               churn            no_churn               churn            no_churn               churn            no_churn               churn            no_churn         
+# state       California New York California New York California New York California New York California New York California New York California New York California New York California New York California New York California New York California New York
+# city                                                                                                                                                                                                                                                       
+# Los Angeles        0.0      0.0        0.0      0.0        1.0      0.0        1.0      0.0        2.0      0.0        3.0      0.0        1.0      0.0        1.0      0.0        1.0      0.0        0.0      0.0        5.0      0.0        2.0      0.0
+# New York           0.0      1.0        0.0      1.0        0.0      0.0        0.0      0.0        0.0      5.0        0.0      4.0        0.0      0.0        0.0      1.0        0.0      1.0        0.0      0.0        0.0      2.0        0.0      6.0
+
+
+# - keep all cartesian combos when stacking by disabling dropna, then fill.
+churn_full = churn_unstack.stack(level=["plan", "year"], dropna=False).fillna(0)
+print(churn_full)
+# exited                          churn            no_churn         
+# state                      California New York California New York
+# city        plan      year                                        
+# Los Angeles data      2019        2.0      0.0        3.0      0.0
+#                       2020        5.0      0.0        2.0      0.0
+#             minutes   2019        0.0      0.0        0.0      0.0
+#                       2020        1.0      0.0        1.0      0.0
+#             voicemail 2019        1.0      0.0        1.0      0.0
+#                       2020        1.0      0.0        0.0      0.0
+# New York    data      2019        0.0      5.0        0.0      4.0
+#                       2020        0.0      2.0        0.0      6.0
+#             minutes   2019        0.0      1.0        0.0      1.0
+#                       2020        0.0      0.0        0.0      1.0
+#             voicemail 2019        0.0      0.0        0.0      0.0
+#                       2020        0.0      1.0        0.0      0.0
