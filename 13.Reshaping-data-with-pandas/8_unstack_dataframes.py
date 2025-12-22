@@ -1,8 +1,3 @@
-#  - Unstack = inverse of stack: moves the innermost row index level to the innermost column level.
-#   - Works on Series and DataFrames: df.stack() → df.unstack() gets you back (assuming no duplicate indices).
-#   - Level selection: unstack(level=<number_or_name>) chooses which row level to pivot out (default is last).
-#   - Sorting note: stack/unstack implicitly sort index levels; control with sort_index(ascending=…) if needed.
-#   - Chaining: you can re-order levels by stacking one level and unstacking another to rearrange row/column hierarchies.
 
 import pandas as pd
 
@@ -29,7 +24,20 @@ new_index = [
     ["Los Angeles", "San Francisco", "New York", "Cleveland"],
 ]
 churn.index = pd.MultiIndex.from_arrays(new_index, names=["state", "city"])
-churn_stack = churn.stack()
+
+# here the index-levels/rows are state and city
+# the columns are Area code, total_day_calls, total_day_minutes
+
+# print(churn)
+#                           Area code  total_day_calls  total_day_minutes
+# state      city                                                        
+# California Los Angeles          408              116                204
+#            San Francisco        408              109                287
+# New York   New York             415               84                 84
+# Ohio       Cleveland            510               67                 50
+
+# stack() moves all column labels into the row index (one level deeper).
+churn_stack = churn.stack() 
 # print(churn_stack)
 # state       city                            
 # California  Los Angeles    Area code            408
@@ -45,7 +53,8 @@ churn_stack = churn.stack()
 #                            total_day_calls       67
 #                            total_day_minutes     50
 
-# Unstack the innermost row level (metric) back to columns (round-trip).
+# unstack() looks at the row index levels in order: [state, city, <the stacked column labels>]. 
+# With no level argument, unstack() moves the last row level (the unnamed one created by stack) back to columns.
 churn_unstack = churn_stack.unstack()
 # print(churn_unstack)
 #                           Area code  total_day_calls  total_day_minutes
@@ -80,8 +89,8 @@ churn_multi = pd.DataFrame(
 # New York     New York             84            84              75             90
 # Ohio         Cleveland            67            50              67             110
 
-# Stack a column level to get a DataFrame indexed by (state, city, feature).
 churn_feature = churn_multi.stack(level="feature")
+# stack the 'feature' column level into the rows: rows become (state, city, feature); columns = time
 # print(churn_feature)
 # time                                    night  day
 # state      city          feature                  
@@ -96,6 +105,7 @@ churn_feature = churn_multi.stack(level="feature")
 
 # Unstack that same level back to columns (inverse of the previous stack).
 churn_feature_unstack = churn_feature.unstack(level="feature")
+# unstack the same level back to columns (inverse of previous stack)
 # print(churn_feature_unstack)
 # time                           night                       day              
 # feature                  total calls total minutes total calls total minutes
@@ -107,6 +117,7 @@ churn_feature_unstack = churn_feature.unstack(level="feature")
 
 # Unstack a different row level: bring "state" (level=0) out to columns.
 churn_state_unstack = churn_feature.unstack(level=0)
+# unstack a different row level: move 'state' (level=0) to columns instead
 # print(churn_state_unstack)
 # time                             night                       day                
 # state                       California New York  Ohio California New York   Ohio
@@ -122,3 +133,14 @@ churn_state_unstack = churn_feature.unstack(level=0)
 
 # Control sort order if needed.
 print(churn_state_unstack.sort_index(ascending=False))
+# time                             night                       day                
+# state                       California New York  Ohio California New York   Ohio
+# city          feature                                                           
+# San Francisco total minutes      287.0      NaN   NaN      167.0      NaN    NaN
+#               total calls        109.0      NaN   NaN       90.0      NaN    NaN
+# New York      total minutes        NaN     84.0   NaN        NaN     90.0    NaN
+#               total calls          NaN     84.0   NaN        NaN     75.0    NaN
+# Los Angeles   total minutes      204.0      NaN   NaN      107.0      NaN    NaN
+#               total calls        116.0      NaN   NaN       85.0      NaN    NaN
+# Cleveland     total minutes        NaN      NaN  50.0        NaN      NaN  110.0
+#               total calls          NaN      NaN  67.0        NaN      NaN   67.0
