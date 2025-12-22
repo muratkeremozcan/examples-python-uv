@@ -2,6 +2,17 @@ import pandas as pd
 
 # - Why MultiIndex: store multidimensional data (e.g., country/age or member/card) in one DataFrame, enabling hierarchical grouping and reshaping.
 
+# MultiIndex mental model: still a 2D table, but row/column labels are hierarchical,
+# letting you represent higher dimensions (country/sex/year) on 2 axes. 
+# Stack/unstack just moves one level between rows and columns; each cell is still a single value.
+
+# it's like doing a table within a table (almost like 3D in a 2D)
+# because you have index level /rows which is like a meta row
+# then hou have columns
+# then you have specific values called cells
+
+
+
 # - MultiIndex basics: create multi-level row/column indexes via 
 #   set_index([...]) 
 #   pd.MultiIndex.from_arrays(...) 
