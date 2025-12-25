@@ -89,8 +89,8 @@ churn_multi = pd.DataFrame(
 # New York     New York             84            84              75             90
 # Ohio         Cleveland            67            50              67             110
 
-churn_feature = churn_multi.stack(level="feature")
 # stack the 'feature' column level into the rows: rows become (state, city, feature); columns = time
+churn_feature = churn_multi.stack(level="feature")
 # print(churn_feature)
 # time                                    night  day
 # state      city          feature                  
