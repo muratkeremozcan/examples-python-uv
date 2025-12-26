@@ -106,8 +106,7 @@ churn_multi = pd.DataFrame(
 # New York     New York             84            84              75             90
 # Ohio         Cleveland            67            50              67             110
 
-# 4) Stack a chosen column level: here level=1 (feature) drops into the row index, 
-# leaving the remaining column level (time) on top.
+# 4) stack the level 1 column ('feature') into the rows: rows become (state, city, feature); columns = time
 churn_stack = churn_multi.stack(level=1)
 #                                         day  night
 # state      city                                   
@@ -120,7 +119,7 @@ churn_stack = churn_multi.stack(level=1)
 # Ohio       Cleveland     total calls     67     67
 #                          total minutes  110     50
 
-# Stack by the named column level "feature" (same as level=1).
+# stack the 'feature' column level into the rows: rows become (state, city, feature); columns = time
 churn_feature = churn_multi.stack(level="feature")
 # time                day  night
 # state      city                    
