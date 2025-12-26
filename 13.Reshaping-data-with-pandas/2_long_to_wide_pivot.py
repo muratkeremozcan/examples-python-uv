@@ -1,9 +1,12 @@
-# Pivot quick guide (why/when + how)
-# - Wide: many measure columns; useful for time-series columns, quick comparisons, spreadsheet-style scans.
-# - Long (tidy): one row per entity; best for plotting, grouped stats, model inputs.
-# - Use pivot for long -> wide: pivot(index=<rows>, columns=<new cols>, values=<cell values>); 
-# missing combos become NaN; duplicate index+column pairs raise.
+# Pivot quick guide 
+# - Wide: one row per entity, columns hold each variable. Useful for time-series columns, quick comparisons, spreadsheet-style scans.
+# - Long/tidy: one row per entity-variable pair, t; best for plotting, grouped stats, model inputs.
 
+
+# - Use pivot for long -> wide: 
+# pivot(index=<rows>, columns=<new cols>, values=<cell values>); 
+# pivot needs unique index/column pairs; missing combos become NaN; duplicate index+column pairs raise.
+# If you have duplicates, use pivot_table instead.
 
 import pandas as pd
 
@@ -64,7 +67,7 @@ fifa_players = pd.DataFrame(
 # 5  Cristiano Ronaldo  dribbling       89         84
 
 
-# Pivot overall: rows=name, cols=movement, values=overall score
+# pivot(rows, cols, values)
 fifa_overall = fifa_players.pivot(index="name", columns="movement", values="overall")
 print(fifa_overall)
 # movement           dribbling  passing  shooting

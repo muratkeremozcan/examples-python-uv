@@ -1,14 +1,18 @@
 import pandas as pd
 
 # Cheat sheet tied to the churn example below:
-# - swaplevel(a, b, axis=0|1): swap two index levels (rows by default). Use it when
-#   you want a different level to move during stack/unstack.
+# - swaplevel(a, b, axis=0|1): swap two index levels (rows by default). 
+#  Use it when you want a different level to move during stack/unstack.
+
 # - unstack/stack can take multiple levels: pass a list of level numbers/names to move
 #   several levels in one go instead of chaining one at a time.
+
 # - Order matters: the last level you stack becomes the innermost row level; when
 #   unstacking, the last level becomes the innermost column level.
+
 # - Chaining: swap → unstack (or unstack → swap) lets you control which levels end up
 #   on rows vs columns without rewriting the data.
+
 # - Missing data note: unstack can introduce NaNs when combos don’t exist; use
 #   fill_value on unstack or fillna afterward. stack drops all-NaN rows by default
 #   (dropna=True); set dropna=False to keep the full cartesian set.
@@ -62,7 +66,7 @@ churn_swap = churn.swaplevel(0, 2)
 # New York    New York   churn          1         0    5       0         1    2
 #                        no_churn       1         0    4       1         0    6
 
-# 2) unstack the last row level (exited) into columns; city/state stay as rows.
+# 2) unstack the last index/row level (exited) into columns; city/state stay as rows.
 churn_unstack = churn_swap.unstack()
 # year                      2019                                               2020                                           
 # plan                     minutes            voicemail            data          minutes            voicemail            data         

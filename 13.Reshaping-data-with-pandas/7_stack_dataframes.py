@@ -3,14 +3,13 @@ import pandas as pd
 # - Why MultiIndex: store multidimensional data (e.g., country/age or member/card) in one DataFrame, enabling hierarchical grouping and reshaping.
 
 # MultiIndex mental model: still a 2D table, but row/column labels are hierarchical,
-# letting you represent higher dimensions (country/sex/year) on 2 axes. 
+# letting you represent higher dimensions on 2 axes. 
 # Stack/unstack just moves one level between rows and columns; each cell is still a single value.
 
 # it's like doing a table within a table (almost like 3D in a 2D)
 # because you have index level /rows which is like a meta row
-# then hou have columns
+# then you have columns
 # then you have specific values called cells
-
 
 
 # - MultiIndex basics: create multi-level row/column indexes via 
@@ -54,6 +53,8 @@ churn_new = pd.MultiIndex.from_arrays(new_index, names=['state', 'city'])
 
 # 2) Attach that MultiIndex to the DataFrame to make row labels meaningful for later reshaping and grouping.
 churn.index = churn_new
+# here the index-levels/rows are state and city
+# the columns are Area code, total_day_calls, total_day_minutes
 #                           Area code  total_day_calls  total_day_minutes
 # state      city                                                        
 # California Los Angeles          408              116                204
@@ -61,9 +62,7 @@ churn.index = churn_new
 # New York   New York             415               84                 84
 # Ohio       Cleveland            510               67                 50
 
-# 3) Stack with single-level columns: move the column labels down into the row index, 
-#    yielding a Series keyed by (state, city, metric). 
-#   This is the long-form view of the same data.
+# 3) stack() moves all column labels into the row index (one level deeper).
 churn_stack = churn.stack()
 # state       city                            
 # California  Los Angeles    Area code            408
@@ -121,6 +120,19 @@ churn_stack = churn_multi.stack(level=1)
 # Ohio       Cleveland     total calls     67     67
 #                          total minutes  110     50
 
+# Stack by the named column level "feature" (same as level=1).
+churn_feature = churn_multi.stack(level="feature")
+# time                day  night
+# state      city                    
+# California Los Angeles   total calls     85    116
+#                          total minutes  107    204
+#            San Francisco total calls     90    109
+#                          total minutes  167    287
+# New York   New York      total calls     75     84
+#                          total minutes   90     84
+# Ohio       Cleveland     total calls     67     67
+#                          total minutes  110     50
+
 # Stack by the named column level "time" (same as level=0 here).
 churn_time = churn_multi.stack(level="time")
 # feature                         total calls  total minutes
@@ -134,15 +146,3 @@ churn_time = churn_multi.stack(level="time")
 # Ohio       Cleveland     night           67             50
 #                          day             67            110
 
-# Stack by the named column level "feature" (same as level=1).
-churn_feature = churn_multi.stack(level="feature")
-# time                day  night
-# state      city                    
-# California Los Angeles   total calls     85    116
-#                          total minutes  107    204
-#            San Francisco total calls     90    109
-#                          total minutes  167    287
-# New York   New York      total calls     75     84
-#                          total minutes   90     84
-# Ohio       Cleveland     total calls     67     67
-#                          total minutes  110     50
