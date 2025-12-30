@@ -2,67 +2,229 @@ import pandas as pd
 
 # Create a sample temperature dataset based on the printout
 # This is a subset of the larger global temperature dataset
-temperatures = pd.DataFrame({
-    'date': [
-        # Abidjan, Côte D'Ivoire data
-        '2000-01-01', '2000-02-01', '2000-03-01', '2000-04-01', '2000-05-01', '2000-06-01',
-        '2000-07-01', '2000-08-01', '2000-09-01', '2000-10-01', '2000-11-01', '2000-12-01',
-        # New York, United States data
-        '2000-01-01', '2000-02-01', '2000-03-01', '2000-04-01', '2000-05-01', '2000-06-01',
-        '2000-07-01', '2000-08-01', '2000-09-01', '2000-10-01', '2000-11-01', '2000-12-01',
-        # London, United Kingdom data (sample)
-        '2000-01-01', '2000-02-01', '2000-03-01', '2000-04-01', '2000-05-01', '2000-06-01',
-        '2000-07-01', '2000-08-01', '2000-09-01', '2000-10-01', '2000-11-01', '2000-12-01',
-        # Beijing, China data (sample)
-        '2000-01-01', '2000-02-01', '2000-03-01', '2000-04-01', '2000-05-01', '2000-06-01',
-        '2000-07-01', '2000-08-01', '2000-09-01', '2000-10-01', '2000-11-01', '2000-12-01'
-    ],
-    'city': [
-        # Abidjan entries
-        'Abidjan', 'Abidjan', 'Abidjan', 'Abidjan', 'Abidjan', 'Abidjan',
-        'Abidjan', 'Abidjan', 'Abidjan', 'Abidjan', 'Abidjan', 'Abidjan',
-        # New York entries
-        'New York', 'New York', 'New York', 'New York', 'New York', 'New York',
-        'New York', 'New York', 'New York', 'New York', 'New York', 'New York',
-        # London entries
-        'London', 'London', 'London', 'London', 'London', 'London',
-        'London', 'London', 'London', 'London', 'London', 'London',
-        # Beijing entries
-        'Beijing', 'Beijing', 'Beijing', 'Beijing', 'Beijing', 'Beijing',
-        'Beijing', 'Beijing', 'Beijing', 'Beijing', 'Beijing', 'Beijing'
-    ],
-    'country': [
-        # Abidjan entries
-        "Côte D'Ivoire", "Côte D'Ivoire", "Côte D'Ivoire", "Côte D'Ivoire", "Côte D'Ivoire", "Côte D'Ivoire",
-        "Côte D'Ivoire", "Côte D'Ivoire", "Côte D'Ivoire", "Côte D'Ivoire", "Côte D'Ivoire", "Côte D'Ivoire",
-        # New York entries
-        'United States', 'United States', 'United States', 'United States', 'United States', 'United States',
-        'United States', 'United States', 'United States', 'United States', 'United States', 'United States',
-        # London entries
-        'United Kingdom', 'United Kingdom', 'United Kingdom', 'United Kingdom', 'United Kingdom', 'United Kingdom',
-        'United Kingdom', 'United Kingdom', 'United Kingdom', 'United Kingdom', 'United Kingdom', 'United Kingdom',
-        # Beijing entries
-        'China', 'China', 'China', 'China', 'China', 'China',
-        'China', 'China', 'China', 'China', 'China', 'China'
-    ],
-    'avg_temp_c': [
-        # Abidjan temperatures (tropical climate)
-        27.293, 27.685, 29.061, 28.162, 27.547, 25.812,
-        24.870, 24.884, 25.405, 26.074, 27.315, 26.929,
-        # New York temperatures (temperate climate)
-        -3.168, -0.162, 6.391, 8.897, 15.944, 20.234,
-        20.727, 20.791, 17.095, 11.323, 4.913, -3.356,
-        # London temperatures (oceanic climate)
-        3.2, 3.8, 5.9, 8.1, 12.3, 15.7,
-        17.9, 17.6, 14.8, 10.4, 6.1, 3.9,
-        # Beijing temperatures (continental climate)
-        -4.2, -1.1, 6.8, 14.3, 20.1, 24.8,
-        26.9, 25.7, 20.6, 13.1, 4.7, -2.8
-    ]
-})
+temperatures = pd.DataFrame(
+    {
+        "date": [
+            # Abidjan, Côte D'Ivoire data
+            "2000-01-01",
+            "2000-02-01",
+            "2000-03-01",
+            "2000-04-01",
+            "2000-05-01",
+            "2000-06-01",
+            "2000-07-01",
+            "2000-08-01",
+            "2000-09-01",
+            "2000-10-01",
+            "2000-11-01",
+            "2000-12-01",
+            # New York, United States data
+            "2000-01-01",
+            "2000-02-01",
+            "2000-03-01",
+            "2000-04-01",
+            "2000-05-01",
+            "2000-06-01",
+            "2000-07-01",
+            "2000-08-01",
+            "2000-09-01",
+            "2000-10-01",
+            "2000-11-01",
+            "2000-12-01",
+            # London, United Kingdom data (sample)
+            "2000-01-01",
+            "2000-02-01",
+            "2000-03-01",
+            "2000-04-01",
+            "2000-05-01",
+            "2000-06-01",
+            "2000-07-01",
+            "2000-08-01",
+            "2000-09-01",
+            "2000-10-01",
+            "2000-11-01",
+            "2000-12-01",
+            # Beijing, China data (sample)
+            "2000-01-01",
+            "2000-02-01",
+            "2000-03-01",
+            "2000-04-01",
+            "2000-05-01",
+            "2000-06-01",
+            "2000-07-01",
+            "2000-08-01",
+            "2000-09-01",
+            "2000-10-01",
+            "2000-11-01",
+            "2000-12-01",
+        ],
+        "city": [
+            # Abidjan entries
+            "Abidjan",
+            "Abidjan",
+            "Abidjan",
+            "Abidjan",
+            "Abidjan",
+            "Abidjan",
+            "Abidjan",
+            "Abidjan",
+            "Abidjan",
+            "Abidjan",
+            "Abidjan",
+            "Abidjan",
+            # New York entries
+            "New York",
+            "New York",
+            "New York",
+            "New York",
+            "New York",
+            "New York",
+            "New York",
+            "New York",
+            "New York",
+            "New York",
+            "New York",
+            "New York",
+            # London entries
+            "London",
+            "London",
+            "London",
+            "London",
+            "London",
+            "London",
+            "London",
+            "London",
+            "London",
+            "London",
+            "London",
+            "London",
+            # Beijing entries
+            "Beijing",
+            "Beijing",
+            "Beijing",
+            "Beijing",
+            "Beijing",
+            "Beijing",
+            "Beijing",
+            "Beijing",
+            "Beijing",
+            "Beijing",
+            "Beijing",
+            "Beijing",
+        ],
+        "country": [
+            # Abidjan entries
+            "Côte D'Ivoire",
+            "Côte D'Ivoire",
+            "Côte D'Ivoire",
+            "Côte D'Ivoire",
+            "Côte D'Ivoire",
+            "Côte D'Ivoire",
+            "Côte D'Ivoire",
+            "Côte D'Ivoire",
+            "Côte D'Ivoire",
+            "Côte D'Ivoire",
+            "Côte D'Ivoire",
+            "Côte D'Ivoire",
+            # New York entries
+            "United States",
+            "United States",
+            "United States",
+            "United States",
+            "United States",
+            "United States",
+            "United States",
+            "United States",
+            "United States",
+            "United States",
+            "United States",
+            "United States",
+            # London entries
+            "United Kingdom",
+            "United Kingdom",
+            "United Kingdom",
+            "United Kingdom",
+            "United Kingdom",
+            "United Kingdom",
+            "United Kingdom",
+            "United Kingdom",
+            "United Kingdom",
+            "United Kingdom",
+            "United Kingdom",
+            "United Kingdom",
+            # Beijing entries
+            "China",
+            "China",
+            "China",
+            "China",
+            "China",
+            "China",
+            "China",
+            "China",
+            "China",
+            "China",
+            "China",
+            "China",
+        ],
+        "avg_temp_c": [
+            # Abidjan temperatures (tropical climate)
+            27.293,
+            27.685,
+            29.061,
+            28.162,
+            27.547,
+            25.812,
+            24.870,
+            24.884,
+            25.405,
+            26.074,
+            27.315,
+            26.929,
+            # New York temperatures (temperate climate)
+            -3.168,
+            -0.162,
+            6.391,
+            8.897,
+            15.944,
+            20.234,
+            20.727,
+            20.791,
+            17.095,
+            11.323,
+            4.913,
+            -3.356,
+            # London temperatures (oceanic climate)
+            3.2,
+            3.8,
+            5.9,
+            8.1,
+            12.3,
+            15.7,
+            17.9,
+            17.6,
+            14.8,
+            10.4,
+            6.1,
+            3.9,
+            # Beijing temperatures (continental climate)
+            -4.2,
+            -1.1,
+            6.8,
+            14.3,
+            20.1,
+            24.8,
+            26.9,
+            25.7,
+            20.6,
+            13.1,
+            4.7,
+            -2.8,
+        ],
+    }
+)
 
 # Convert date column to datetime
-temperatures['date'] = pd.to_datetime(temperatures['date'])
+temperatures["date"] = pd.to_datetime(temperatures["date"])
 
 
 # 89    2007-06-01           Abidjan                       Côte D'Ivoire      26.134

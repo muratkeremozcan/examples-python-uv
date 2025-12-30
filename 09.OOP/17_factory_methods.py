@@ -14,8 +14,8 @@ class Customer(ABC):
 class RewardsMember(Customer):
     def make_payment(self, price):
         print(
-            f"""Total price for rewards member is 
-          ${price * .90}, which is 10% off"""
+            f"""Total price for rewards member is
+          ${price * 0.90}, which is 10% off"""
         )
 
 

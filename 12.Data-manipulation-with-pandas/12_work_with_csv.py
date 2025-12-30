@@ -5,21 +5,26 @@
 # - sort_values() orders data by column values
 # - to_csv() exports DataFrames back to CSV files
 
-import pandas as pd
 import os
+
+import pandas as pd
 
 # import csv
 script_dir = os.path.dirname(os.path.abspath(__file__))
-csv_path = os.path.join(script_dir, 'airline_bumping.csv')
+csv_path = os.path.join(script_dir, "airline_bumping.csv")
 
 airline_bumping = pd.read_csv(csv_path)
 
 print(airline_bumping)
 
 # For each airline, select nb_bumped and total_passengers and sum
-airline_totals = airline_bumping.groupby('airline')[['nb_bumped', 'total_passengers']].sum()
+airline_totals = airline_bumping.groupby("airline")[
+    ["nb_bumped", "total_passengers"]
+].sum()
 # Create new col, bumps_per_10k: no. of bumps per 10k passengers for each airline
-airline_totals["bumps_per_10k"] = airline_totals["nb_bumped"] / airline_totals["total_passengers"] * 10000
+airline_totals["bumps_per_10k"] = (
+    airline_totals["nb_bumped"] / airline_totals["total_passengers"] * 10000
+)
 
 print(airline_totals)
 

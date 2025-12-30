@@ -1,6 +1,59 @@
 import pandas as pd
 
-dates_2015 = ['2015-12-27', '2015-12-20', '2015-12-13', '2015-12-06', '2015-11-29', '2015-11-22', '2015-11-15', '2015-11-08', '2015-11-01', '2015-10-25', '2015-10-18', '2015-10-11', '2015-10-04', '2015-09-27', '2015-09-20', '2015-09-13', '2015-09-06', '2015-08-30', '2015-08-23', '2015-08-16', '2015-08-09', '2015-08-02', '2015-07-26', '2015-07-19', '2015-07-12', '2015-07-05', '2015-06-28', '2015-06-21', '2015-06-14', '2015-06-07', '2015-05-31', '2015-05-24', '2015-05-17', '2015-05-10', '2015-05-03', '2015-04-26', '2015-04-19', '2015-04-12', '2015-04-05', '2015-03-29', '2015-03-22', '2015-03-15', '2015-03-08', '2015-03-01', '2015-02-22', '2015-02-15', '2015-02-08', '2015-02-01', '2015-01-25', '2015-01-18', '2015-01-11', '2015-01-04']
+dates_2015 = [
+    "2015-12-27",
+    "2015-12-20",
+    "2015-12-13",
+    "2015-12-06",
+    "2015-11-29",
+    "2015-11-22",
+    "2015-11-15",
+    "2015-11-08",
+    "2015-11-01",
+    "2015-10-25",
+    "2015-10-18",
+    "2015-10-11",
+    "2015-10-04",
+    "2015-09-27",
+    "2015-09-20",
+    "2015-09-13",
+    "2015-09-06",
+    "2015-08-30",
+    "2015-08-23",
+    "2015-08-16",
+    "2015-08-09",
+    "2015-08-02",
+    "2015-07-26",
+    "2015-07-19",
+    "2015-07-12",
+    "2015-07-05",
+    "2015-06-28",
+    "2015-06-21",
+    "2015-06-14",
+    "2015-06-07",
+    "2015-05-31",
+    "2015-05-24",
+    "2015-05-17",
+    "2015-05-10",
+    "2015-05-03",
+    "2015-04-26",
+    "2015-04-19",
+    "2015-04-12",
+    "2015-04-05",
+    "2015-03-29",
+    "2015-03-22",
+    "2015-03-15",
+    "2015-03-08",
+    "2015-03-01",
+    "2015-02-22",
+    "2015-02-15",
+    "2015-02-08",
+    "2015-02-01",
+    "2015-01-25",
+    "2015-01-18",
+    "2015-01-11",
+    "2015-01-04",
+]
 
 # Create all the data to match exactly what's in your comment
 avocados_data = []
@@ -9,42 +62,44 @@ avocados_data = []
 # Instead, let me create a representative sample that includes all the variations
 
 for year in [2015, 2016, 2017, 2018]:
-    for type_val in ['conventional', 'organic']:
-        for size in ['small', 'large', 'extra_large']:
+    for type_val in ["conventional", "organic"]:
+        for size in ["small", "large", "extra_large"]:
             # Add some sample data for each combination
             for month in range(1, 13):  # 12 months
                 if year == 2018 and month > 3:  # 2018 data only goes to March
                     break
-                
-                date_str = f'{year}-{month:02d}-15'  # 15th of each month
-                
+
+                date_str = f"{year}-{month:02d}-15"  # 15th of each month
+
                 # Sample prices based on type and year
-                if type_val == 'conventional':
+                if type_val == "conventional":
                     price = 0.95 + (year - 2015) * 0.05 + (month - 1) * 0.01
                 else:  # organic
                     price = 1.52 + (year - 2015) * 0.05 + (month - 1) * 0.01
-                
+
                 # Sample quantities based on size
-                if size == 'small':
+                if size == "small":
                     quantity = 9000000 + (year - 2015) * 1000000
-                elif size == 'large':
+                elif size == "large":
                     quantity = 11000000 + (year - 2015) * 1000000
                 else:  # extra_large
                     quantity = 800000 + (year - 2015) * 100000
-                
-                avocados_data.append({
-                    'date': date_str,
-                    'type': type_val,
-                    'year': year,
-                    'avg_price': round(price, 2),
-                    'size': size,
-                    'lbs_sold': round(quantity + month * 50000, 2)
-                })
+
+                avocados_data.append(
+                    {
+                        "date": date_str,
+                        "type": type_val,
+                        "year": year,
+                        "avg_price": round(price, 2),
+                        "size": size,
+                        "lbs_sold": round(quantity + month * 50000, 2),
+                    }
+                )
 
 avocados = pd.DataFrame(avocados_data)
 
 # Convert date to datetime
-avocados['date'] = pd.to_datetime(avocados['date'])
+avocados["date"] = pd.to_datetime(avocados["date"])
 
 #             date          type  year  avg_price         size     lbs_sold
 # 0     2015-12-27  conventional  2015       0.95        small   9626901.09

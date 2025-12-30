@@ -7,16 +7,17 @@ import pandas as pd
 # - expand=True: makes split return separate columns
 
 
-
-books_dys = pd.DataFrame({
-	'title': ['Fahrenheit 451-1953', '1984-1949', 'Brave New World-1932'],
-	'year': [1953, 1949, 1932],
-	'num_pages': [186, 268, 123],
-	'average_rating': [4.10, 4.31, 4.30],
-	'ratings_count': [23244, 14353, 23535]
-})
+books_dys = pd.DataFrame(
+    {
+        "title": ["Fahrenheit 451-1953", "1984-1949", "Brave New World-1932"],
+        "year": [1953, 1949, 1932],
+        "num_pages": [186, 268, 123],
+        "average_rating": [4.10, 4.31, 4.30],
+        "ratings_count": [23244, 14353, 23535],
+    }
+)
 #                       year  num_pages  average_rating  ratings_count
-# title                                                               
+# title
 # Fahrenheit 451-1953   1953        186            4.10          23244
 # 1984-1949             1949        268            4.31          14353
 # Brave New World-1932  1932        123            4.30          23535
@@ -24,16 +25,16 @@ books_dys = pd.DataFrame({
 
 # - str.split(delim, expand=True): break text into pieces
 # 1) Split the title on the hyphen so we can drop the year part.
-books_dys.index = books_dys.index.str.split('-')
+books_dys.index = books_dys.index.str.split("-")
 #                          year  num_pages  average_rating  ratings_count
-# title                                                                  
+# title
 # [Fahrenheit 451, 1953]   1953        186            4.10          23244
 # [1984, 1949]             1949        268            4.31          14353
 # [Brave New World, 1932]  1932        123            4.30          23535
 
 # books_dys.index = books_dys.index.str.split('-', expand=True)
 #                  0                1    year  num_pages  average_rating  ratings_count
-# title                                                                                
+# title
 # Fahrenheit 451   1953             1953     186            4.10          23244
 # 1984             1949             1949     268            4.31          14353
 # Brave New World  1932             1932     123            4.30          23535
@@ -43,17 +44,17 @@ books_dys.index = books_dys.index.str.split('-')
 # 2) Keep only the title part (first element of the split).
 books_dys.index = books_dys.index.str.get(0)
 #                     year  num_pages  average_rating  ratings_count
-# title                                                              
+# title
 # Fahrenheit 451       1953        186            4.10          23244
 # 1984                 1949        268            4.31          14353
 # Brave New World      1932        123            4.30          23535
 
 # - str.cat(other, sep): join strings/columns/lists
 # 3) Append author names from a list to make the index more informative.
-author_list = ['Ray Bradbury', 'George Orwell', 'Aldous Huxley']
-books_dys.index = books_dys.index.str.cat(author_list, sep='-')
+author_list = ["Ray Bradbury", "George Orwell", "Aldous Huxley"]
+books_dys.index = books_dys.index.str.cat(author_list, sep="-")
 #                                  year  num_pages  average_rating  ratings_count
-# title                                                                          
+# title
 # Fahrenheit 451 - Ray Bradbury    1953        186            4.10          23244
 # 1984 - George Orwell             1949        268            4.31          14353
 # Brave New World - Aldous Huxley  1932        123            4.30          23535

@@ -41,9 +41,9 @@ start = datetime(2017, 3, 12, tzinfo=et)
 end = start + timedelta(hours=6)  # Crosses DST boundary
 
 print(f"Local time: {start.isoformat()} to {end.isoformat()}")
-print(f"Wall clock hours: {(end-start).total_seconds()/3600}")  # 6 hours
+print(f"Wall clock hours: {(end - start).total_seconds() / 3600}")  # 6 hours
 print(
-    f"UTC hours: {(end.astimezone(timezone.utc) - start.astimezone(timezone.utc)).total_seconds()/3600}"
+    f"UTC hours: {(end.astimezone(timezone.utc) - start.astimezone(timezone.utc)).total_seconds() / 3600}"
 )  # 5 hours
 
 # Best practice: Convert to UTC for storage/calculations

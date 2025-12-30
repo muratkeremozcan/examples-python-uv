@@ -57,32 +57,33 @@ try:
     fifa_players.pivot(index="name", columns="movement")
 except ValueError as exc:
     print(exc)
-print('\n') 
+print("\n")
 
 
 # Use pivot method to get all scores by name and movement
-fifa_pivot = fifa_drop.pivot(index='name', columns='movement')
-print('pivot:')
-print(fifa_pivot) 
-print('\n') 
-#                     overall                  attacking                 
+fifa_pivot = fifa_drop.pivot(index="name", columns="movement")
+print("pivot:")
+print(fifa_pivot)
+print("\n")
+#                     overall                  attacking
 # movement          dribbling passing shooting dribbling passing shooting
-# name                                                                   
+# name
 # Cristiano Ronaldo        89      82       93        84      83       89
 # L. Messi                 88      92       92        97      92       70
 
 # Pivot table handles duplicates because it aggregates.
 # Explicit aggfunc shows how duplicates are resolved per column.
-fifa_pivot_table = fifa_players.pivot_table(index='name', columns='movement', aggfunc='mean')
-print('pivot_table:')
+fifa_pivot_table = fifa_players.pivot_table(
+    index="name", columns="movement", aggfunc="mean"
+)
+print("pivot_table:")
 print(fifa_pivot_table)
-print('\n')
-#                   attacking                    overall                 
+print("\n")
+#                   attacking                    overall
 # movement          dribbling passing shooting dribbling passing shooting
-# name                                                                   
+# name
 # Cristiano Ronaldo      84.0    83.0     89.0      89.0    82.0     93.0
 # L. Messi               92.5    92.0     70.0      92.0    92.0     92.0
-
 
 
 # pivot table has additional features like aggfunc, margins, etc.
@@ -91,13 +92,13 @@ fifa_pivot_table = fifa_players.pivot_table(
     columns="movement",
     values=["overall", "attacking"],
     aggfunc={"overall": "max", "attacking": "mean"},
-    margins=True, # adds subtotals
+    margins=True,  # adds subtotals
 )
 print("\nPivot table output (aggregated):\n")
 print(fifa_pivot_table)
-#                    attacking                               overall                     
+#                    attacking                               overall
 # movement           dribbling passing shooting        All dribbling passing shooting All
-# name                                                                                   
+# name
 # Cristiano Ronaldo  84.000000    83.0     89.0  85.333333      89.0    82.0     93.0  93
 # L. Messi           92.500000    92.0     70.0  86.750000      96.0    92.0     92.0  96
 # All                89.666667    87.5     79.5  86.142857      96.0    92.0     93.0  96

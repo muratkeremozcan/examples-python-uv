@@ -4,17 +4,57 @@ import pandas as pd
 # This matches the structure from the comments below
 num_rows = 1500
 
-sales = pd.DataFrame({
-    'store': ([1] * 48 + [2] * 24) * (num_rows // 72) + ([1] * (num_rows % 72)),
-    'type': ['A'] * num_rows,
-    'department': (list(range(1, 100)) + [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 21, 22, 23, 24, 25]) * (num_rows // 124) + (list(range(1, (num_rows % 124) + 1))),
-    'date': pd.date_range('2010-02-05', periods=num_rows, freq='W'),
-    'weekly_sales': [24924.50, 21827.90, 57258.43, 17413.94, 17558.09] * (num_rows // 5) + [24924.50, 21827.90, 57258.43, 17413.94, 17558.09][:num_rows % 5],
-    'is_holiday': [False] * (num_rows - 100) + [True] * 100,
-    'temperature_c': [5.727778, 8.055556, 16.816667, 22.527778, 27.050000] * (num_rows // 5) + [5.727778, 8.055556, 16.816667, 22.527778, 27.050000][:num_rows % 5],
-    'fuel_price_usd_per_l': [0.679451, 0.693452, 0.718284, 0.748928, 0.714586] * (num_rows // 5) + [0.679451, 0.693452, 0.718284, 0.748928, 0.714586][:num_rows % 5],
-    'unemployment': [8.106, 8.106, 7.808, 7.808, 7.808] * (num_rows // 5) + [8.106, 8.106, 7.808, 7.808, 7.808][:num_rows % 5]
-})
+sales = pd.DataFrame(
+    {
+        "store": ([1] * 48 + [2] * 24) * (num_rows // 72) + ([1] * (num_rows % 72)),
+        "type": ["A"] * num_rows,
+        "department": (
+            list(range(1, 100))
+            + [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                16,
+                17,
+                18,
+                19,
+                20,
+                21,
+                21,
+                22,
+                23,
+                24,
+                25,
+            ]
+        )
+        * (num_rows // 124)
+        + (list(range(1, (num_rows % 124) + 1))),
+        "date": pd.date_range("2010-02-05", periods=num_rows, freq="W"),
+        "weekly_sales": [24924.50, 21827.90, 57258.43, 17413.94, 17558.09]
+        * (num_rows // 5)
+        + [24924.50, 21827.90, 57258.43, 17413.94, 17558.09][: num_rows % 5],
+        "is_holiday": [False] * (num_rows - 100) + [True] * 100,
+        "temperature_c": [5.727778, 8.055556, 16.816667, 22.527778, 27.050000]
+        * (num_rows // 5)
+        + [5.727778, 8.055556, 16.816667, 22.527778, 27.050000][: num_rows % 5],
+        "fuel_price_usd_per_l": [0.679451, 0.693452, 0.718284, 0.748928, 0.714586]
+        * (num_rows // 5)
+        + [0.679451, 0.693452, 0.718284, 0.748928, 0.714586][: num_rows % 5],
+        "unemployment": [8.106, 8.106, 7.808, 7.808, 7.808] * (num_rows // 5)
+        + [8.106, 8.106, 7.808, 7.808, 7.808][: num_rows % 5],
+    }
+)
 
 
 #        store type  department       date  weekly_sales  is_holiday  temperature_c  fuel_price_usd_per_l  unemployment

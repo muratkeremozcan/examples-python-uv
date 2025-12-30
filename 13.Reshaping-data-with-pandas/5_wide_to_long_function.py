@@ -3,8 +3,8 @@ import pandas as pd
 # Wide-to-long takeaways:
 # - Use pandas.wide_to_long when columns share prefixes + suffixes that encode a variable (e.g., age1990, age2000, weight1990, weight2000).
 
-# - stubnames: list of prefixes to gather; i: new index column(s), j: new name of the stub column; 
-# - sep: if prefixes and suffixes are split by a character (ratings_2010) declare a separator sep="_" 
+# - stubnames: list of prefixes to gather; i: new index column(s), j: new name of the stub column;
+# - sep: if prefixes and suffixes are split by a character (ratings_2010) declare a separator sep="_"
 # - suffix: regex for non-numeric suffixes, like empty space (publication date) suffix=r"\w+"
 # - reset_index() takes whatever’s in the index and turns it into a normal column (and gives you a fresh 0,1,2 RangeIndex
 
@@ -31,7 +31,7 @@ golden_age = pd.DataFrame(
 # pd.wide_to_long(df, stubnames=<prefix>, i=<new index>, j=<new name of the stub>)
 isbn_long = pd.wide_to_long(golden_age, stubnames="isbn", i="title", j="version")
 #                            prefix10              authors  prefix13           isbn
-# title             version                                                        
+# title             version
 # The Great Gatsby  13              1  F. Scott Fitzgerald       978  9780060098919
 # The Short Stories 13              0     Ernest Hemingway       978  9780684837864
 # To the Lighthouse 13              0       Virginia Woolf       978  9780156030472
@@ -41,9 +41,11 @@ isbn_long = pd.wide_to_long(golden_age, stubnames="isbn", i="title", j="version"
 
 # Reshape wide to long using title and authors as index and version as new name, and prefix as wide column prefix
 # pd.wide_to_long(df, stubnames=<prefix>, i=<new index>, j=<new name of the stub>)
-prefix_long = pd.wide_to_long(golden_age, stubnames="prefix", i=["title", "authors"], j="version")
+prefix_long = pd.wide_to_long(
+    golden_age, stubnames="prefix", i=["title", "authors"], j="version"
+)
 #                                                    isbn10         isbn13  prefix
-# title             authors             version                                   
+# title             authors             version
 # The Great Gatsby  F. Scott Fitzgerald 13       1572702567  9780060098919     978
 #                                       10       1572702567  9780060098919       1
 # The Short Stories Ernest Hemingway    13        684837862  9780684837864     978
@@ -53,10 +55,12 @@ prefix_long = pd.wide_to_long(golden_age, stubnames="prefix", i=["title", "autho
 
 # Reshape wide to long using title and authors as index and version as new name, and prefix and isbn as wide column prefixes
 # pd.wide_to_long(df, stubnames=<prefix>, i=<new index>, j=<new name of the stub>)
-all_long = pd.wide_to_long(golden_age, stubnames=["prefix", "isbn"], i=["title", "authors"], j="version")
+all_long = pd.wide_to_long(
+    golden_age, stubnames=["prefix", "isbn"], i=["title", "authors"], j="version"
+)
 #                                                prefix           isbn
 #                                                        isbn  prefix
-# title             authors             version                       
+# title             authors             version
 # The Great Gatsby  F. Scott Fitzgerald 13       9780060098919     978
 #                                       10          1572702567       1
 # The Short Stories Ernest Hemingway    13       9780684837864     978
@@ -87,22 +91,22 @@ books_brown = pd.DataFrame(
 # Specify underscore as the character that separates the variable names
 # Specify that wide columns have a suffix containing words
 # pd.wide_to_long(df, stubnames=<prefix>, i=<new index>, j=<new name of the stub>)
-the_code_long = pd.wide_to_long(books_brown,
-                                stubnames=['language', 'publisher'],
-                                i=['author', 'title'],
-                                j='code',
-                                sep='_',
-                                suffix='\w+')
+the_code_long = pd.wide_to_long(
+    books_brown,
+    stubnames=["language", "publisher"],
+    i=["author", "title"],
+    j="code",
+    sep="_",
+    suffix=r"\w+",
+)
 #                                     language     publisher
-# author    title                code                       
+# author    title                code
 # Dan Brown The Da Vinci Code    code        0            12
 #                                name  english  Random House
 #           Angels & Demons      code        0            34
 #                                name  english  Pocket Books
 #           La fortaleza digital code       84            43
 #                                name  spanish       Umbriel
-
-
 
 
 ######################
@@ -118,7 +122,7 @@ books_hunger = pd.DataFrame(
 ).set_index("title")
 
 #                        language publication date  publication number  page number
-# title                                                                            
+# title
 # Los Juegos del Hambre   Spanish        5/25/2010                   2          374
 # Catching Fire           English        5/25/2012                   6          391
 # Il canto della rivolta  Italian         6/8/2015                   4          390
@@ -138,7 +142,9 @@ except KeyError as exc:
 
 
 # reset_index() takes whatever’s in the index and turns it into a normal column (and gives you a fresh 0,1,2 RangeIndex
-books_hunger_reset = books_hunger.reset_index() # books_hunger.reset_index(drop=False, inplace=True) if you wanted to mutate books_hunger in place
+books_hunger_reset = (
+    books_hunger.reset_index()
+)  # books_hunger.reset_index(drop=False, inplace=True) if you wanted to mutate books_hunger in place
 print("\nAfter reset_index:")
 print(books_hunger_reset)
 #                     title language publication date  publication number  page number

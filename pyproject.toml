@@ -67,5 +67,10 @@ skip_gitignore = true
 [tool.flake8]
 exclude = "venv, .venv, env, .env, .git, __pycache__, **/site-packages/**"
 max-line-length = 200
-ignore = "E203, W503, E501, E266, F811, F841, F401, E402"
+ignore = "E203, W503, E501, E266, F811, F841, F401, E402, E731"
 per-file-ignores = "__init__.py:F401"
+
+[dependency-groups]
+dev = [
+    "pre-commit>=4.5.1",
+]

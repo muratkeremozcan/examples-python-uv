@@ -62,7 +62,9 @@ def plot_pop(filename, country_code, chunksize=1000, plot=True):
         print(f"No data found for country code '{country_code}'.")
         return pd.DataFrame()
 
-    data = pd.concat(data_frames, ignore_index=True)  # single concat is faster than per-chunk
+    data = pd.concat(
+        data_frames, ignore_index=True
+    )  # single concat is faster than per-chunk
 
     if plot:
         # Generate scatter plot of Total Urban Population over time

@@ -1,9 +1,9 @@
 # .iloc is useful for row/column access by position, but not optimal for performance.
 # Vectorized NumPy operations are fastest — they operate on full arrays at once and avoid Python loops.
 
-# Vectorization means letting array/dataframe operations run in native C/NumPy/pandas routines over whole columns/arrays at once 
-# instead of looping in Python row by row. 
-# You write expressions like arr * 2, df["a"] + df["b"], or np.mean(arr, axis=1) and the library does the per-element work under the hood in compiled code. 
+# Vectorization means letting array/dataframe operations run in native C/NumPy/pandas routines over whole columns/arrays at once
+# instead of looping in Python row by row.
+# You write expressions like arr * 2, df["a"] + df["b"], or np.mean(arr, axis=1) and the library does the per-element work under the hood in compiled code.
 # Result: much faster and usually clearer, no explicit Python for-loops.
 
 

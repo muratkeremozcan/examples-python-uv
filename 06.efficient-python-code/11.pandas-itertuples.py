@@ -1,4 +1,4 @@
-# .itertuples() is a faster row-wise loop that returns each row as a namedtuple; 
+# .itertuples() is a faster row-wise loop that returns each row as a namedtuple;
 # prefer this over iterrows when you must loop rows.
 
 import pandas as pd

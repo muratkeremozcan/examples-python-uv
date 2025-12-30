@@ -31,7 +31,7 @@ churn = pd.DataFrame(
 ).set_index(["state", "international_plan", "voice_mail_plan", "churn"])
 
 #                                                 total_day_calls  total_night_calls
-# state international_plan voice_mail_plan churn                                    
+# state international_plan voice_mail_plan churn
 # LA    No                 No              False          106.818             96.909
 #                                          True           100.000            119.000
 #                          Yes             False          100.000             84.250
@@ -49,11 +49,12 @@ churn = pd.DataFrame(
 churn = churn.unstack(level="churn", fill_value=0)
 
 # Sort by descending voice mail plan and ascending international plan
-churn_sorted = churn.sort_index(level=["voice_mail_plan", "international_plan"], 
-                                ascending=[False, True])
-#                                          total_day_calls        total_night_calls       
+churn_sorted = churn.sort_index(
+    level=["voice_mail_plan", "international_plan"], ascending=[False, True]
+)
+#                                          total_day_calls        total_night_calls
 # churn                                              False   True             False   True
-# state international_plan voice_mail_plan                                                
+# state international_plan voice_mail_plan
 # LA    No                 Yes                     100.000    0.0            84.250    0.0
 # NY    No                 Yes                     115.000    0.0           121.000    0.0
 # LA    Yes                Yes                      71.000    0.0           101.000    0.0
@@ -67,10 +68,10 @@ churn_sorted = churn.sort_index(level=["voice_mail_plan", "international_plan"],
 churn.columns = pd.MultiIndex.from_product(
     [["call"], ["day", "night"], [False, True]], names=["type", "scope", "churn"]
 )
-# type                                         call                       
-# scope                                         day           night       
-# churn                                       False  True     False  True 
-# state international_plan voice_mail_plan                                
+# type                                         call
+# scope                                         day           night
+# churn                                       False  True     False  True
+# state international_plan voice_mail_plan
 # LA    No                 No               106.818  100.0   96.909  119.0
 #                          Yes              100.000    0.0   84.250    0.0
 #       Yes                No                78.000   69.0   90.000  104.0
@@ -82,10 +83,10 @@ churn.columns = pd.MultiIndex.from_product(
 
 # Introduce a missing combo to create NaNs after stacking.
 churn.loc[("NY", "Yes", "No"), ("call", "day", True)] = pd.NA
-# type                                         call                       
-# scope                                         day           night       
-# churn                                       False  True     False  True 
-# state international_plan voice_mail_plan                                
+# type                                         call
+# scope                                         day           night
+# churn                                       False  True     False  True
+# state international_plan voice_mail_plan
 # LA    No                 No               106.818  100.0   96.909  119.0
 #                          Yes              100.000    0.0   84.250    0.0
 #       Yes                No                78.000   69.0   90.000  104.0
@@ -101,7 +102,7 @@ churn_stacked = churn.stack(level=["scope", "churn"], dropna=False)
 churn_filled = churn_stacked.fillna(0)
 print(churn_filled)
 # type                                                     call
-# state international_plan voice_mail_plan scope churn         
+# state international_plan voice_mail_plan scope churn
 # LA    No                 No              day   False  106.818
 #                                                True   100.000
 #                                          night False   96.909
