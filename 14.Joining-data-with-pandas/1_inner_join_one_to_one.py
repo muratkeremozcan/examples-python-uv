@@ -3,7 +3,7 @@ import pandas as pd
 # Sample data for a later example (kept in a separate file).
 from taxi_data import taxi_owners, taxi_veh
 
-# Key takeaways (inner join, one to one):
+# Key takeaways (inner join, one to one - each key appears once in both tables):
 # - "Table" and "DataFrame" mean the same thing here; merging/joining is combining tables.
 # - merge() matches rows on a key column; inner join keeps only keys present in both tables.
 # - The left DataFrame's columns come first; overlap gets suffixes (default _x/_y).

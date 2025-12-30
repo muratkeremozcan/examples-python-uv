@@ -32,7 +32,7 @@ movies_norm = json_normalize(movies, sep="_")
 # 0  Woody Allen  Letty Aronson  Magic in the Moonlight           2014
 # 1    Niki Caro     Jason Reed                   Mulan           2020
 
-# Reshape using director and producer as index, create movies from columns starting with "features". 
+# Reshape using director and producer as index, create movies from columns starting with "features".
 # This converts feature columns (title/year) into rows.
 # pd.wide_to_long(df, stubnames=<prefix>, i=<new index>, j=<new name of the stub>)
 movies_long = pd.wide_to_long(
@@ -45,7 +45,7 @@ movies_long = pd.wide_to_long(
 )
 # print(movies_long)
 #                                                 features
-# director    producer      movies                        
+# director    producer      movies
 # Woody Allen Letty Aronson title   Magic in the Moonlight
 #                           year                      2014
 # Niki Caro   Jason Reed    title                    Mulan
@@ -61,7 +61,7 @@ print(movies_long.reset_index())
 ############
 # Narrative checkpoint:
 
-# The default json_normalize() separator is a dot, which is fine for display 
+# The default json_normalize() separator is a dot, which is fine for display
 # but less convenient for wide_to_long (it expects a simple prefix + separator pattern).
 
 # print(json_normalize(movies))
@@ -69,7 +69,7 @@ print(movies_long.reset_index())
 # 0  Woody Allen  Letty Aronson  Magic in the Moonlight           2014
 # 1    Niki Caro     Jason Reed                   Mulan           2020
 
-# record_path is only for list-of-dict (array of objects) fields; 
+# record_path is only for list-of-dict (array of objects) fields;
 # "features" is a dict here, so we flatten it directly and reshape afterward.
 
 # print(json_normalize(movies, record_path='features'))
@@ -78,7 +78,7 @@ print(movies_long.reset_index())
 # 1                     Mulan  2020
 
 
-# normalize_movies = json_normalize(movies, 
+# normalize_movies = json_normalize(movies,
 #                                   record_path=["features"],
 #                                   meta=["director", "producer"])
 # print(normalize_movies)

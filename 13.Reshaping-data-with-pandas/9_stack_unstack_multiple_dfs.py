@@ -1,7 +1,7 @@
 import pandas as pd
 
 # Cheat sheet tied to the churn example below:
-# - swaplevel(a, b, axis=0|1): swap two index levels (rows by default). 
+# - swaplevel(a, b, axis=0|1): swap two index levels (rows by default).
 #  Use it when you want a different level to move during stack/unstack.
 
 # - unstack/stack can take multiple levels: pass a list of level numbers/names to move
@@ -18,10 +18,10 @@ import pandas as pd
 #   (dropna=True); set dropna=False to keep the full cartesian set.
 
 # Missing-data reshaping takeaways:
-# - unstack can create NaNs when row subgroups lack matching labels; 
+# - unstack can create NaNs when row subgroups lack matching labels;
 #  fill with fill_value or later fillna.
 
-# - stack drops all-NaN rows by default (dropna=True); 
+# - stack drops all-NaN rows by default (dropna=True);
 #  set dropna=False to keep the full cartesian result, then fillna as needed.
 
 
@@ -48,9 +48,9 @@ churn = pd.DataFrame(
     columns=columns,
 )
 
-# year                               2019                   2020               
+# year                               2019                   2020
 # plan                            minutes voicemail data minutes voicemail data
-# exited   state      city                                                     
+# exited   state      city
 # churn    California Los Angeles       0         1    2       1         1    5
 # no_churn California Los Angeles       0         1    3       1         0    2
 # churn    New York   New York          1         0    5       0         1    2
@@ -58,9 +58,9 @@ churn = pd.DataFrame(
 
 # 1) swaplevel to pick which row level moves later: bring city up before unstacking.
 churn_swap = churn.swaplevel(0, 2)
-# year                               2019                   2020               
+# year                               2019                   2020
 # plan                            minutes voicemail data minutes voicemail data
-# city        state      exited                                                
+# city        state      exited
 # Los Angeles California churn          0         1    2       1         1    5
 #                        no_churn       0         1    3       1         0    2
 # New York    New York   churn          1         0    5       0         1    2
@@ -68,28 +68,28 @@ churn_swap = churn.swaplevel(0, 2)
 
 # 2) unstack the last index/row level (exited) into columns; city/state stay as rows.
 churn_unstack = churn_swap.unstack()
-# year                      2019                                               2020                                           
-# plan                     minutes            voicemail            data          minutes            voicemail            data         
+# year                      2019                                               2020
+# plan                     minutes            voicemail            data          minutes            voicemail            data
 # exited                   churn no_churn     churn no_churn     churn no_churn   churn no_churn     churn no_churn     churn no_churn
-# city        state                                                                                                           
+# city        state
 # Los Angeles California       0        0      1        1         2        3       1        1      		1        0      			5        2
 # New York    New York         1        1      0        0         5        4       0        1      		1        0      			2        6
 
 # 3) unstack multiple row levels at once (exited, state) by position.
 churn_unstack = churn.unstack(level=[0, 1])
 # year              2019                                                                                                                    2020                                                   \
-# plan           minutes                               voicemail                                    data                                 minutes                               voicemail            
-# exited           churn            no_churn               churn            no_churn               churn            no_churn               churn            no_churn               churn            
-# state       California New York California New York California New York California New York California New York California New York California New York California New York California New York   
-# city                                                                                                                                                                                              
-# Los Angeles        0.0      NaN        0.0      NaN        1.0      NaN        1.0      NaN        2.0      NaN        3.0      NaN        1.0      NaN        1.0      NaN        1.0      NaN   
-# New York           NaN      1.0        NaN      1.0        NaN      0.0        NaN      0.0        NaN      5.0        NaN      4.0        NaN      0.0        NaN      1.0        NaN      1.0   
+# plan           minutes                               voicemail                                    data                                 minutes                               voicemail
+# exited           churn            no_churn               churn            no_churn               churn            no_churn               churn            no_churn               churn
+# state       California New York California New York California New York California New York California New York California New York California New York California New York California New York
+# city
+# Los Angeles        0.0      NaN        0.0      NaN        1.0      NaN        1.0      NaN        2.0      NaN        3.0      NaN        1.0      NaN        1.0      NaN        1.0      NaN
+# New York           NaN      1.0        NaN      1.0        NaN      0.0        NaN      0.0        NaN      5.0        NaN      4.0        NaN      0.0        NaN      1.0        NaN      1.0
 
 # 4) stack multiple column levels (plan, year) back into the row index.
 churn_py = churn_unstack.stack(level=["plan", "year"])
-# exited                          churn            no_churn         
+# exited                          churn            no_churn
 # state                      California New York California New York
-# city        plan      year                                        
+# city        plan      year
 # Los Angeles data      2019        2.0      NaN        3.0      NaN
 #                       2020        5.0      NaN        2.0      NaN
 #             minutes   2019        0.0      NaN        0.0      NaN
@@ -107,7 +107,7 @@ churn_py = churn_unstack.stack(level=["plan", "year"])
 churn_switch = churn_py.swaplevel(0, 1, axis=1)
 # state                      California New York California New York
 # exited                          churn    churn   no_churn no_churn
-# city        plan      year                                        
+# city        plan      year
 # Los Angeles data      2019        2.0      NaN        3.0      NaN
 # 											2020        5.0      NaN        2.0      NaN
 # 						minutes   2019        0.0      NaN        0.0      NaN
@@ -124,11 +124,11 @@ churn_switch = churn_py.swaplevel(0, 1, axis=1)
 # Missing-data handling on the reshaped output:
 # - fill NaNs created by unstack with a default (e.g., 0) if absent combos should be treated as zero.
 churn_unstack_filled = churn_unstack.fillna(0)
-# year              2019                                                                                                                    2020                                                                                                             
-# plan           minutes                               voicemail                                    data                                 minutes                               voicemail                                    data                             
-# exited           churn            no_churn               churn            no_churn               churn            no_churn               churn            no_churn               churn            no_churn               churn            no_churn         
+# year              2019                                                                                                                    2020
+# plan           minutes                               voicemail                                    data                                 minutes                               voicemail                                    data
+# exited           churn            no_churn               churn            no_churn               churn            no_churn               churn            no_churn               churn            no_churn               churn            no_churn
 # state       California New York California New York California New York California New York California New York California New York California New York California New York California New York California New York California New York California New York
-# city                                                                                                                                                                                                                                                       
+# city
 # Los Angeles        0.0      0.0        0.0      0.0        1.0      0.0        1.0      0.0        2.0      0.0        3.0      0.0        1.0      0.0        1.0      0.0        1.0      0.0        0.0      0.0        5.0      0.0        2.0      0.0
 # New York           0.0      1.0        0.0      1.0        0.0      0.0        0.0      0.0        0.0      5.0        0.0      4.0        0.0      0.0        0.0      1.0        0.0      1.0        0.0      0.0        0.0      2.0        0.0      6.0
 
@@ -136,9 +136,9 @@ churn_unstack_filled = churn_unstack.fillna(0)
 # - keep all cartesian combos when stacking by disabling dropna, then fill.
 churn_full = churn_unstack.stack(level=["plan", "year"], dropna=False).fillna(0)
 print(churn_full)
-# exited                          churn            no_churn         
+# exited                          churn            no_churn
 # state                      California New York California New York
-# city        plan      year                                        
+# city        plan      year
 # Los Angeles data      2019        2.0      0.0        3.0      0.0
 #                       2020        5.0      0.0        2.0      0.0
 #             minutes   2019        0.0      0.0        0.0      0.0

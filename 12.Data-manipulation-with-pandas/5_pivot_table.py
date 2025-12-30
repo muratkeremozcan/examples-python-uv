@@ -7,11 +7,13 @@
 import pandas as pd
 
 # Same tiny demo used in 4_groupby.py
-demo = pd.DataFrame({
-    'type': ['A','A','B','B','C'],
-    'is_holiday': [False, True, False, False, True],
-    'weekly_sales': [100, 120, 80, 140, 60]
-})
+demo = pd.DataFrame(
+    {
+        "type": ["A", "A", "B", "B", "C"],
+        "is_holiday": [False, True, False, False, True],
+        "weekly_sales": [100, 120, 80, 140, 60],
+    }
+)
 
 print("Original demo:")
 print(demo)
@@ -25,10 +27,10 @@ print(demo)
 # 1) Sum per type (equivalent to: demo.groupby('type')['weekly_sales'].sum())
 # (foo, row, value)
 print("\nSum per type (pivot_table):")
-sum_by_type = pd.pivot_table(demo, index='type', values='weekly_sales', aggfunc='sum')
+sum_by_type = pd.pivot_table(demo, index="type", values="weekly_sales", aggfunc="sum")
 print(sum_by_type)
 #       weekly_sales
-# type              
+# type
 # A              220
 # B              220
 # C               60
@@ -36,22 +38,23 @@ print(sum_by_type)
 # 2) Multiple aggregations per group (flatten MultiIndex columns afterward)
 print("\nAggregations per type (pivot_table with multiple agg funcs):")
 agg_by_type = pd.pivot_table(
-    demo,
-    index='type',
-    values='weekly_sales',
-    aggfunc=['sum', 'mean', 'count']
+    demo, index="type", values="weekly_sales", aggfunc=["sum", "mean", "count"]
 )
-agg_by_type.columns = ['total_sales', 'avg_sales', 'n_weeks']  # flatten & rename for readability
+agg_by_type.columns = [
+    "total_sales",
+    "avg_sales",
+    "n_weeks",
+]  # flatten & rename for readability
 print(agg_by_type)
 #       total_sales  avg_sales  n_weeks
-# type                                 
+# type
 # A             220      110.0        2
 # B             220      110.0        2
 # C              60       60.0        1
 
 # 3) Percent share by type (using the single-agg table)
 print("\nPercent share by type:")
-share_by_type = sum_by_type['weekly_sales'] / sum_by_type['weekly_sales'].sum()
+share_by_type = sum_by_type["weekly_sales"] / sum_by_type["weekly_sales"].sum()
 print(share_by_type)
 # type
 # A    0.44
@@ -63,16 +66,16 @@ print(share_by_type)
 print("\nTwo keys → index='type', columns='is_holiday', values='weekly_sales':")
 agg_by_type_holiday = pd.pivot_table(
     demo,
-    index='type',
-    columns='is_holiday',
-    values='weekly_sales',
-    aggfunc='sum',
-    fill_value=0,   # fill missing combos
-    margins=True    # add totals row/column
+    index="type",
+    columns="is_holiday",
+    values="weekly_sales",
+    aggfunc="sum",
+    fill_value=0,  # fill missing combos
+    margins=True,  # add totals row/column
 )
 print(agg_by_type_holiday)
 # is_holiday  False  True  All
-# type                        
+# type
 # A             100   120  220
 # B             220     0  220
 # C               0    60   60
@@ -92,38 +95,31 @@ print(sum_by_type.reset_index())
 # - pivot_table can take dict or list of aggfuncs; groupby.agg supports NamedAgg for many input columns.
 
 
-
 ##########
 
-from dataframes.sales import sales
 import numpy as np
+from dataframes.sales import sales
 
 # sales_by_type_holiday = sales.groupby(['type', 'is_holiday'])['weekly_sales'].sum()
 sales_by_type_holiday = pd.pivot_table(
-    sales,
-    index=['type', 'is_holiday'],
-    values='weekly_sales',
-    aggfunc='sum'
+    sales, index=["type", "is_holiday"], values="weekly_sales", aggfunc="sum"
 )
 
 # sales.groupby('type')['weekly_sales'].agg(['min', 'max', 'mean', 'median'])
 sales_stats = pd.pivot_table(
-    sales,
-    index='type',
-    values='weekly_sales',
-    aggfunc=['min', 'max', 'mean', 'median']
+    sales, index="type", values="weekly_sales", aggfunc=["min", "max", "mean", "median"]
 )
-sales_stats.columns = ['min', 'max', 'mean', 'median']
+sales_stats.columns = ["min", "max", "mean", "median"]
 print(sales_stats)
 
 # sales.groupby('type')[['unemployment','fuel_price_usd_per_l']].agg(['min','max','mean','median'])
 unemp_fuel_stats = pd.pivot_table(
     sales,
-    index='type',
-    values=['unemployment', 'fuel_price_usd_per_l'],
-    aggfunc=['min', 'max', 'mean', 'median']
+    index="type",
+    values=["unemployment", "fuel_price_usd_per_l"],
+    aggfunc=["min", "max", "mean", "median"],
 )
 # The result has MultiIndex columns: (value, aggfunc) pairs
 # We need to flatten them properly
-unemp_fuel_stats.columns = [f'{col[0]}_{col[1]}' for col in unemp_fuel_stats.columns]
+unemp_fuel_stats.columns = [f"{col[0]}_{col[1]}" for col in unemp_fuel_stats.columns]
 print(unemp_fuel_stats)

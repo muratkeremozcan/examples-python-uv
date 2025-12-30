@@ -73,7 +73,7 @@ def test_reading_speed(benchmark, read_df):
     # Using 10ms as a safe upper limit to account for CI variability
     assert (
         benchmark.stats["mean"] < 0.01
-    ), f"Grouping operation took {benchmark.stats['mean']*1000:.2f}ms, which is too slow"
+    ), f"Grouping operation took {benchmark.stats['mean'] * 1000:.2f}ms, which is too slow"
 
     # You can also check the number of iterations and other stats
     assert benchmark.stats["iterations"] > 0

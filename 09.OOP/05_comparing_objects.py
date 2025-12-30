@@ -110,7 +110,7 @@ class Phone:
         self.number = number
 
     def __eq__(self, other):
-        return (self.number == other.number) and (type(self) == type(other))
+        return (self.number == other.number) and (type(self) is type(other))
 
 
 pn = Phone(873555333)
@@ -139,7 +139,7 @@ except AttributeError as e:
     print(f"Error: {e}")
 
 # 5. View the internal storage
-print(f"\nInternal state:")
+print("\nInternal state:")
 print(f"__dict__: {account.__dict__}")
 print(f"_dynamic_attributes: {account._dynamic_attributes}")
 

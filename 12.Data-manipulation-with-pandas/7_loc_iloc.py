@@ -8,12 +8,14 @@
 
 import pandas as pd
 
-demo = pd.DataFrame({
-    'type': ['A','A','B','B','C','C','D','D'],
-    'is_holiday': [False, True, False, True, False, True, False, True],
-    'weekly_sales': [100, 120, 80, 140, 60, 90, 110, 130],
-    'temperature': [25, 28, 22, 26, 30, 32, 20, 24]
-})
+demo = pd.DataFrame(
+    {
+        "type": ["A", "A", "B", "B", "C", "C", "D", "D"],
+        "is_holiday": [False, True, False, True, False, True, False, True],
+        "weekly_sales": [100, 120, 80, 140, 60, 90, 110, 130],
+        "temperature": [25, 28, 22, 26, 30, 32, 20, 24],
+    }
+)
 
 print("Original demo:")
 print(demo)
@@ -21,24 +23,24 @@ print(demo)
 print("\n=== .loc[] examples (LABEL-based) ===")
 
 print("\n1. You can only slice with a SORTED INDEX")
-demo_srt = demo.set_index('type').sort_index()
+demo_srt = demo.set_index("type").sort_index()
 print(demo_srt)
 
 print("\n2. SLICE rows with strings: loc['A':'C'] (gets A, B, C)")
-print(demo_srt.loc['A':'C'])
+print(demo_srt.loc["A":"C"])
 
 print("\n3. Multi-level index for tuple slicing")
-demo_multi = demo.set_index(['type', 'is_holiday']).sort_index()
+demo_multi = demo.set_index(["type", "is_holiday"]).sort_index()
 print(demo_multi)
 
 print("\n4. SLICE with tuples: loc[(A, False):(C, False)] - continuous range")
-print(demo_multi.loc[('A', False):('C', False)])
+print(demo_multi.loc[("A", False):("C", False)])
 
 print("\n5. SLICE columns: gets all columns from weekly_sales to temperature")
-print(demo_multi.loc[:, 'weekly_sales':'temperature'])
+print(demo_multi.loc[:, "weekly_sales":"temperature"])
 
 print("\n6. SLICE both rows AND columns - subset of both")
-print(demo_multi.loc[('A', False):('B', True), 'weekly_sales':'temperature'])
+print(demo_multi.loc[("A", False):("B", True), "weekly_sales":"temperature"])
 
 
 ################

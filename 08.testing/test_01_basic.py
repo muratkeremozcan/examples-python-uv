@@ -16,8 +16,8 @@ def multiple_of_two(num):
 
 
 def test_numbers():
-    assert multiple_of_two(2) == True
-    assert multiple_of_two(3) == False
+    assert multiple_of_two(2)
+    assert not multiple_of_two(3)
 
 
 def test_zero():
@@ -29,7 +29,7 @@ def test_zero():
 @pytest.mark.skip(reason="skipping this test")
 def test_fails():
     # Write any assert test that will fail
-    assert multiple_of_two(5) == True
+    assert multiple_of_two(5)
 
 
 ####

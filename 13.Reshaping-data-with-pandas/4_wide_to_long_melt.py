@@ -1,13 +1,15 @@
 import pandas as pd
 
-books_gothic = pd.DataFrame({
-    'title': ['Wuthering Heights', 'Frankenstein', 'The Picture of Dorian Gray'],
-    'authors': ['Emily Bronte', 'Mary Shelley', 'Oscar Wilde'],
-    'num_pages': [322, 189, 187],
-    'rating_count': [2155, 2452, 3342],
-    'rating': [3.85, 4.31, 4.15],
-    'publisher': ['Penguin Books', 'Kaplan Publishing', 'Pearson']
-})
+books_gothic = pd.DataFrame(
+    {
+        "title": ["Wuthering Heights", "Frankenstein", "The Picture of Dorian Gray"],
+        "authors": ["Emily Bronte", "Mary Shelley", "Oscar Wilde"],
+        "num_pages": [322, 189, 187],
+        "rating_count": [2155, 2452, 3342],
+        "rating": [3.85, 4.31, 4.15],
+        "publisher": ["Penguin Books", "Kaplan Publishing", "Pearson"],
+    }
+)
 # wide format: each variable is a separate column with one row per item (book item vs authors, num_pages, rating_count, rating, publisher)
 #                         title       authors  num_pages  rating_count  rating          publisher
 # 0           Wuthering Heights  Emily Bronte        322          2155    3.85      Penguin Books
@@ -18,7 +20,7 @@ books_gothic = pd.DataFrame({
 
 # .melt() is the opposite of .pivot()
 # .melt(id_vars=<row vars>, value_vars=<col vars>)
-gothic_melted = books_gothic.melt(id_vars='title')
+gothic_melted = books_gothic.melt(id_vars="title")
 #                          title      variable              value
 # 0            Wuthering Heights       authors       Emily Bronte
 # 1                 Frankenstein       authors       Mary Shelley
@@ -37,7 +39,7 @@ gothic_melted = books_gothic.melt(id_vars='title')
 # 14  The Picture of Dorian Gray     publisher            Pearson
 
 # can use multiple id_vars
-gothic_melted_new = books_gothic.melt(id_vars=['title', 'authors', 'publisher'])
+gothic_melted_new = books_gothic.melt(id_vars=["title", "authors", "publisher"])
 #                         title       authors          publisher      variable    value
 # 0           Wuthering Heights  Emily Bronte      Penguin Books     num_pages   322.00
 # 1                Frankenstein  Mary Shelley  Kaplan Publishing     num_pages   189.00
@@ -49,13 +51,17 @@ gothic_melted_new = books_gothic.melt(id_vars=['title', 'authors', 'publisher'])
 # 7                Frankenstein  Mary Shelley  Kaplan Publishing        rating     4.31
 
 # .melt(id_vars=<row vars>, value_vars=<col vars>)
-publisher_melted = books_gothic.melt(id_vars=['title', 'authors'], value_vars=['publisher'])
+publisher_melted = books_gothic.melt(
+    id_vars=["title", "authors"], value_vars=["publisher"]
+)
 #                         title       authors   variable              value
 # 0           Wuthering Heights  Emily Bronte  publisher      Penguin Books
 # 1                Frankenstein  Mary Shelley  publisher  Kaplan Publishing
 # 2  The Picture of Dorian Gray   Oscar Wilde  publisher            Pearson
 
-rating_melted = books_gothic.melt(id_vars='title', value_vars=['rating', 'rating_count'])
+rating_melted = books_gothic.melt(
+    id_vars="title", value_vars=["rating", "rating_count"]
+)
 #                         title      variable    value
 # 0           Wuthering Heights        rating     3.85
 # 1                Frankenstein        rating     4.31
@@ -64,7 +70,9 @@ rating_melted = books_gothic.melt(id_vars='title', value_vars=['rating', 'rating
 # 4                Frankenstein  rating_count  2452.00
 # 5  The Picture of Dorian Gray  rating_count  3342.00
 
-books_melted = books_gothic.melt(id_vars=['title', 'authors'], value_vars=['rating', 'rating_count'])
+books_melted = books_gothic.melt(
+    id_vars=["title", "authors"], value_vars=["rating", "rating_count"]
+)
 #                         title       authors      variable    value
 # 0           Wuthering Heights  Emily Bronte        rating     3.85
 # 1                Frankenstein  Mary Shelley        rating     4.31
@@ -73,7 +81,9 @@ books_melted = books_gothic.melt(id_vars=['title', 'authors'], value_vars=['rati
 # 4                Frankenstein  Mary Shelley  rating_count  2452.00
 # 5  The Picture of Dorian Gray   Oscar Wilde  rating_count  3342.00
 
-books_ratings = books_gothic.melt(id_vars=['title', 'authors', 'publisher'], value_vars=['rating', 'rating_count'])
+books_ratings = books_gothic.melt(
+    id_vars=["title", "authors", "publisher"], value_vars=["rating", "rating_count"]
+)
 #                         title       authors          publisher      variable    value
 # 0           Wuthering Heights  Emily Bronte      Penguin Books        rating     3.85
 # 1                Frankenstein  Mary Shelley  Kaplan Publishing        rating     4.31
@@ -83,7 +93,11 @@ books_ratings = books_gothic.melt(id_vars=['title', 'authors', 'publisher'], val
 # 5  The Picture of Dorian Gray   Oscar Wilde            Pearson  rating_count  3342.00
 
 # .melt(id_vars=<row vars>, value_vars=<col vars>, var_name=<new var name>)
-books_ratings = books_gothic.melt(id_vars=['title', 'authors', 'publisher'], value_vars=['rating', 'rating_count'], var_name='feature')
+books_ratings = books_gothic.melt(
+    id_vars=["title", "authors", "publisher"],
+    value_vars=["rating", "rating_count"],
+    var_name="feature",
+)
 #                         title       authors          publisher        feature    value
 # 0           Wuthering Heights  Emily Bronte      Penguin Books        rating     3.85
 # 1                Frankenstein  Mary Shelley  Kaplan Publishing        rating     4.31
@@ -93,10 +107,12 @@ books_ratings = books_gothic.melt(id_vars=['title', 'authors', 'publisher'], val
 # 5  The Picture of Dorian Gray   Oscar Wilde            Pearson  rating_count  3342.00
 
 # .melt(id_vars=<row vars>, value_vars=<col vars>, var_name=<new var name>, value_name=<new value name>)
-books_ratings = books_gothic.melt(id_vars=['title', 'authors', 'publisher'], 
-                                  value_vars=['rating', 'rating_count'], 
-                                  var_name='feature', 
-                                  value_name='number')
+books_ratings = books_gothic.melt(
+    id_vars=["title", "authors", "publisher"],
+    value_vars=["rating", "rating_count"],
+    var_name="feature",
+    value_name="number",
+)
 #                         title       authors          publisher       feature   number
 # 0           Wuthering Heights  Emily Bronte      Penguin Books        rating     3.85
 # 1                Frankenstein  Mary Shelley  Kaplan Publishing        rating     4.31

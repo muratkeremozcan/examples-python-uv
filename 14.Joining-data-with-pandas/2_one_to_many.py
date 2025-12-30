@@ -20,7 +20,7 @@ wards = pd.DataFrame(
 # 0     1  Daniel La Spata  123 Main St  60601
 # 1     2    Brian Hopkins   456 Oak St  60602
 # 2     3       Pat Dowell  789 Pine St  60603
-# print(wards.shape) # (3, 4): 3 wards, 4 columns 
+# print(wards.shape) # (3, 4): 3 wards, 4 columns
 
 # License data (many rows per ward).
 licenses = pd.DataFrame(
@@ -55,7 +55,7 @@ print(wards_licenses)
 # 3     2    Brian Hopkins   456 Oak St  60602         103  Diner C   30 State St
 # 4     3       Pat Dowell  789 Pine St  60603         105    Gym E   50 Park Ave
 
-print(wards_licenses.shape) # (5, 7): 5 total rows, 7 columns 
+print(wards_licenses.shape)  # (5, 7): 5 total rows, 7 columns
 print()
 
 #########################
@@ -66,7 +66,7 @@ counted_df = wards_licenses.groupby("ward").agg({"license_id": "count"})
 # print(counted_df)
 # print()
 #       license_id
-# ward            
+# ward
 # 1              3
 # 2              1
 # 3              1

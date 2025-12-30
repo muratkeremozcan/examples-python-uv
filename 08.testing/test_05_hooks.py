@@ -15,7 +15,7 @@ def data():
 
 
 def test_type(data):
-    assert type(data) == pd.DataFrame
+    assert isinstance(data, pd.DataFrame)
 
 
 def test_shape(data):

@@ -12,44 +12,51 @@ from dataframes.sales_short import sales_short
 
 print(sales.head())
 
-print('\ninfo():')
+print("\ninfo():")
 print(sales.info())
 
-print('\nmean():')
-print(sales['weekly_sales'].mean())
+print("\nmean():")
+print(sales["weekly_sales"].mean())
 
-print('\nmedian():')
-print(sales['weekly_sales'].median())
+print("\nmedian():")
+print(sales["weekly_sales"].median())
 
-print('\nmax():')
-print(sales['date'].max())
+print("\nmax():")
+print(sales["date"].max())
 
-print('\nmin():')
-print(sales['date'].min())
+print("\nmin():")
+print(sales["date"].min())
 
-print('\nusing custom function to apply to to the dataframe ( df.apply(fn) ):')
+print("\nusing custom function to apply to to the dataframe ( df.apply(fn) ):")
+
+
 # inter-quartile range (75th percentile minus the 25th percentile)
 def iqr(column):
     return column.quantile(0.75) - column.quantile(0.25)
 
-print(sales['temperature_c'].agg(iqr))
 
-print('\napply custom function to multiple columns:')
-print(sales[['temperature_c', 'fuel_price_usd_per_l', 'unemployment']].agg(iqr))
+print(sales["temperature_c"].agg(iqr))
 
-print('\napply multiple functions to multiple columns:')
-print(sales[['temperature_c', 'fuel_price_usd_per_l', 'unemployment']].agg([iqr, 'median']))
+print("\napply custom function to multiple columns:")
+print(sales[["temperature_c", "fuel_price_usd_per_l", "unemployment"]].agg(iqr))
+
+print("\napply multiple functions to multiple columns:")
+print(
+    sales[["temperature_c", "fuel_price_usd_per_l", "unemployment"]].agg(
+        [iqr, "median"]
+    )
+)
 
 ########
 
 # sort sales by date
-sales_by_date = sales_short.sort_values('date')
+sales_by_date = sales_short.sort_values("date")
 
 # Get the cumulative sum of weekly_sales, add as cum_weekly_sales col
-print('\ncumulative sum, cumsum() :')
-sales_by_date['cum_weekly_sales'] = sales_by_date['weekly_sales'].cumsum()
+print("\ncumulative sum, cumsum() :")
+sales_by_date["cum_weekly_sales"] = sales_by_date["weekly_sales"].cumsum()
 # Get the cumulative max of weekly_sales, add as cum_max_sales col
-print('cumulative max, cummax() :')
-sales_by_date['cum_max_sales'] = sales_by_date['weekly_sales'].cummax()
+print("cumulative max, cummax() :")
+sales_by_date["cum_max_sales"] = sales_by_date["weekly_sales"].cummax()
 
-print(sales_by_date[['date', 'weekly_sales','cum_weekly_sales', 'cum_max_sales']])
+print(sales_by_date[["date", "weekly_sales", "cum_weekly_sales", "cum_max_sales"]])
