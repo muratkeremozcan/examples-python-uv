@@ -104,12 +104,24 @@ grants_licenses_wards = grants.merge(
 # Summarize total grant money by ward.
 # groupby + agg + sort using the same merge result
 ward_totals = (
-    grants_licenses_wards.groupby("ward")
+    grants_licenses_wards.groupby(["alderman", "ward"])
     .agg({"grant": "sum"})
-    .sort_values(by="grant", ascending=False)
+    .sort_values(by=["grant", "ward"], ascending=False)
 )
 print(ward_totals)
+print()
 #       grant
-# ward
-# 1     23000
-# 3      6000
+# alderman
+# Daniel La Spata    23000
+# Pat Dowell          6000
+
+# Filter the merged table and sum grants for a specific slice.
+filter_criteria = (
+    (grants_licenses_wards["ward"] == 1)
+    & (grants_licenses_wards["business_grant"] == "Cafe A")
+    & (grants_licenses_wards["zip_biz"] == 60601)
+)
+print("Filter criteria:")
+print(filter_criteria)
+print("Sum of grants:")
+print(grants_licenses_wards.loc[filter_criteria, "grant"].sum())
