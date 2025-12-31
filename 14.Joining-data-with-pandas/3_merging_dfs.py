@@ -111,9 +111,9 @@ ward_totals = (
 print(ward_totals)
 print()
 #       grant
-# alderman
-# Daniel La Spata    23000
-# Pat Dowell          6000
+# alderman  ward
+# Daniel La Spata  1    23000
+# Pat Dowell       3     6000
 
 # Filter the merged table and sum grants for a specific slice.
 filter_criteria = (
