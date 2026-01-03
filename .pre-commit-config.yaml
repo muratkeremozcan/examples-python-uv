@@ -3,7 +3,7 @@ repos:
     hooks:
       - id: make-validate
         name: make validate
-        entry: make validate
+        entry: bash -c "make validate && git add -A"
         language: system
         pass_filenames: false
       - id: pytest
