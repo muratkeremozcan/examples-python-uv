@@ -1,11 +1,9 @@
 import pandas as pd
 
 # Key takeaways (merging multiple DataFrames):
-# - You can merge more than two tables by chaining merge() calls.
-# - Use multiple keys (on=[...]) to avoid bad matches on a single column.
-# - Matching on address+zip is safer than either alone.
-# - Each merge can add suffixes to clarify overlapping columns.
-# - After merging, group and summarize to answer the business question.
+# - Chain merge() calls to combine 3+ tables.
+# - Use multiple keys when one key is too broad.
+# - Summarize after the merge to answer the question.
 
 # Wards table (local government details).
 wards = pd.DataFrame(

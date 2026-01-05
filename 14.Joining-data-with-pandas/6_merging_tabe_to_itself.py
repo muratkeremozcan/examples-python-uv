@@ -1,10 +1,9 @@
 import pandas as pd
 
 # Key takeaways (self join):
-# - A self join merges a table to itself to link related rows (sequels, managers, chains).
-# - Use left_on/right_on to match different columns within the same table.
-# - Inner self join only keeps rows with matches; left self join keeps all originals.
-# - suffixes=() clarifies which columns describe the original vs the related row.
+# - Merge a table to itself to link related rows.
+# - Use left_on/right_on and suffixes to line up columns.
+# - Inner keeps matches; left keeps all originals.
 
 # Reuse the licenses data from earlier lessons.
 licenses = pd.DataFrame(

@@ -2,8 +2,7 @@ import pandas as pd
 
 # Key takeaways (outer join):
 # - how="outer" keeps all rows from both tables.
-# - Non-matching rows fill missing columns with NaN.
-# - Useful for spotting keys that exist in only one table.
+# - Non-matches show as NaN.
 
 # Reuse the ward/census story: wards (left) and census (right).
 wards = pd.DataFrame(
