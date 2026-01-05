@@ -1,10 +1,9 @@
 import pandas as pd
 
 # Key takeaways (one-to-many):
-# - One-to-one: each key appears once in both tables (wards vs census).
-# - One-to-many: left key appears once, right key appears many times (wards vs licenses).
-# - merge() syntax is the same as one-to-one; pandas handles the expansion.
-# - Row count grows because each left row can match multiple right rows.
+# - Same merge syntax as one-to-one.
+# - Left rows repeat when the right table has many matches.
+# - Row count grows after the merge.
 
 # Ward-level data (one row per ward).
 wards = pd.DataFrame(

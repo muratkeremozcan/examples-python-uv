@@ -1,10 +1,9 @@
 import pandas as pd
 
-# Key takeaways (left join):
-# - merge() defaults to an inner join; use how="left" to keep all left rows.
-# - Left join returns every row from the left table and only matches from the right.
-# - Unmatched right-side columns become NaN (missing data).
-# - In one-to-one data, a left join keeps the same row count as the left table.
+# Key takeaways (left/right join):
+# - how="left" keeps all left rows; how="right" keeps all right rows.
+# - Non-matches become NaN on the other side.
+# - Same merge() syntax as inner joins.
 
 # Reuse the ward/census story from earlier lessons.
 wards = pd.DataFrame(

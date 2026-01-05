@@ -1,9 +1,9 @@
 import pandas as pd
 
 # Key takeaways (merging on indexes):
-# - merge() can join on index names, not just columns.
-# - If index names differ, use left_on/right_on with left_index/right_index.
-# - MultiIndex merges work the same way: pass a list of index level names.
+# - merge() can join on index names.
+# - MultiIndex uses a list of index level names.
+# - Use left_index/right_index when merging on indexes.
 
 # Reuse a familiar "movies" style table with id as the index.
 movies = pd.DataFrame(

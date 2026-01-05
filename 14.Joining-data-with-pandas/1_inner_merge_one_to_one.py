@@ -3,13 +3,10 @@ import pandas as pd
 # Sample data for a later example (kept in a separate file).
 from taxi_data import taxi_owners, taxi_veh
 
-# Key takeaways (inner join, one to one - each key appears once in both tables):
-# - "Table" and "DataFrame" mean the same thing here; merging/joining is combining tables.
-# - merge() matches rows on a key column; inner join keeps only keys present in both tables.
-# - The left DataFrame's columns come first; overlap gets suffixes (default _x/_y).
-# - Use suffixes=() to make overlaps readable (e.g., '_ward' vs '_cen').
-# - Contrast: in 13_transforming_list_like_column.py, merge() aligned by index to
-#   reattach exploded values; here we merge two related tables by a shared key column.
+# Key takeaways (inner join, one-to-one):
+# - Merge on a key column.
+# - Inner join keeps only matching keys.
+# - Use suffixes to label overlapping columns.
 
 # Local government offices by ward (left table).
 wards = pd.DataFrame(
