@@ -1,5 +1,10 @@
 import pandas as pd
 
+# - melt() unpivots wide data into long (tall) format.
+# - id_vars stay fixed; other columns become rows.
+# - value_vars lets you pick which columns to unpivot.
+# - var_name/value_name rename the output columns.
+
 books_gothic = pd.DataFrame(
     {
         "title": ["Wuthering Heights", "Frankenstein", "The Picture of Dorian Gray"],
