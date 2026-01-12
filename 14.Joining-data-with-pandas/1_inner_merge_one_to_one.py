@@ -1,9 +1,6 @@
 import pandas as pd
 
-# Sample data for a later example (kept in a separate file).
-from taxi_data import taxi_owners, taxi_veh
-
-# Key takeaways (inner join, one-to-one):
+# Key takeaways (inner join, one-to-one, set intersection):
 # - Merge on a key column.
 # - Inner join keeps only matching keys.
 # - Use suffixes to label overlapping columns.

@@ -1,5 +1,7 @@
 import pandas as pd
 
+# easier example at 14.Joining-data-with-pandas/14_melt.py
+
 # - melt() unpivots wide data into long (tall) format.
 # - id_vars stay fixed; other columns become rows.
 # - value_vars lets you pick which columns to unpivot.

@@ -2,7 +2,8 @@ import pandas as pd
 
 # Key takeaways (outer join):
 # - how="outer" keeps all rows from both tables.
-# - Non-matches show as NaN.
+# - Non-matches show as NaN.#
+# - like set union; keeping all unique keys from both tables.
 
 # Reuse the ward/census story: wards (left) and census (right).
 wards = pd.DataFrame(
@@ -40,3 +41,8 @@ wards_census_outer = wards.merge(
     census, on="ward", how="outer", suffixes=("_ward", "_cen")
 )
 print(wards_census_outer)
+#    ward         alderman address_ward  zip_ward  pop_2000  pop_2010     address_cen  zip_cen
+# 0     1  Daniel La Spata  123 Main St   60601.0   54991.0   56178.0  100 Center Ave  60601.0
+# 1     2    Brian Hopkins   456 Oak St   60602.0   54361.0   54891.0  200 Center Ave  60602.0
+# 2     3       Pat Dowell  789 Pine St   60603.0       NaN       NaN             NaN      NaN
+# 3     4              NaN          NaN       NaN   50449.0   51520.0  400 Center Ave  60604.0

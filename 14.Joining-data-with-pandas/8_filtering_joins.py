@@ -62,6 +62,36 @@ top_wards = wards[wards["ward"].isin(ward_matches)]
 # 0     1  Daniel La Spata  123 Main St  60601
 # 1     2    Brian Hopkins   456 Oak St  60602
 
+# Note: With unique keys, semi join and inner join return the same left rows.
+# The difference shows up when the right table has multiple matches per key.
+licenses = pd.DataFrame(
+    {
+        "license_id": [101, 102, 103, 104],
+        "business": ["Cafe A", "Shop B", "Diner C", "Salon D"],
+        "ward": [1, 1, 2, 1],
+    }
+)
+# print(licenses)
+#    license_id business  ward
+# 0         101   Cafe A     1
+# 1         102   Shop B     1
+# 2         103  Diner C     2
+# 3         104  Salon D     1
+
+wards_licenses = wards.merge(licenses, on="ward")  # duplicates ward 1
+# print(wards_licenses)
+#    ward         alderman      address    zip  license_id business
+# 0     1  Daniel La Spata  123 Main St  60601         101   Cafe A
+# 1     1  Daniel La Spata  123 Main St  60601         102   Shop B
+# 2     1  Daniel La Spata  123 Main St  60601         104  Salon D
+# 3     2    Brian Hopkins   456 Oak St  60602         103  Diner C
+ward_matches_many = wards_licenses["ward"]
+top_wards_many = wards[wards["ward"].isin(ward_matches_many)]
+# print(wards_licenses[["ward", "business"]])
+# print(top_wards_many)
+#    ward         alderman      address    zip
+# 0     1  Daniel La Spata  123 Main St  60601
+# 1     2    Brian Hopkins   456 Oak St  60602
 
 # ########################
 # Anti join: Keep rows from left table that do NOT have a match in the right table.

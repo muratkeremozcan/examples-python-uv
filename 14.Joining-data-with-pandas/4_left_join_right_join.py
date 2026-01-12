@@ -3,7 +3,8 @@ import pandas as pd
 # Key takeaways (left/right join):
 # - how="left" keeps all left rows; how="right" keeps all right rows.
 # - Non-matches become NaN on the other side.
-# - Same merge() syntax as inner joins.
+# - Same merge() syntax as inner joins
+# - takes the intersection + one of the sides (left or right)
 
 # Reuse the ward/census story from earlier lessons.
 wards = pd.DataFrame(
