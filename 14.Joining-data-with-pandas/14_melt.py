@@ -49,3 +49,8 @@ fin_named = social_fin.melt(
     value_name="dollars",
 )
 print(fin_named)
+#     company  year  dollars
+# 0  Facebook  2018     55.8
+# 1   Twitter  2018      3.0
+# 2  Facebook  2017     40.7
+# 3   Twitter  2017      2.4
