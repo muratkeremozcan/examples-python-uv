@@ -43,7 +43,6 @@ print()
 #############
 
 print("np.where for indices:")
-# arr = np.array([1, 2, 3, 4, 5])
 
 # give me the indexes where(the value is true)
 idx = np.where(nums % 2 == 0)
