@@ -17,6 +17,7 @@ logo_rgb = np.array(
     ],
     dtype=np.uint8,
 )
+# (2, 2, 3) → 2 rows, 2 columns, 3 channels (R,G,B).
 # print(logo_rgb)
 # [
 #  [
@@ -43,7 +44,16 @@ with open("logo.npy", "rb") as f:
 red = logo_loaded[:, :, 0]
 green = logo_loaded[:, :, 1]
 blue = logo_loaded[:, :, 2]
+# red   = [[255, 255],
+#          [  0, 255]]
+
+# green = [[  0, 255],
+#          [  0, 255]]
+
+# blue  = [[  0,   0],
+#          [  0, 255]]
 print(red[0], green[0], blue[0])
+# [255 255] [  0 255] [0 0]
 
 # Replace bright pixels (255) with 50 to darken the image.
 dark_logo = np.where(logo_loaded == 255, 50, logo_loaded)
