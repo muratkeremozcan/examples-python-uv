@@ -55,8 +55,8 @@ start_value = 0.85
 ax.annotate(
     ">1.0",
     xy=(point_date, point_value),
-    xytext=(start_date, start_value),
-    arrowprops={"arrowstyle": "->", "color": "gray"},
+    xytext=(start_date, start_value),  # optional arrow's start point
+    arrowprops={"arrowstyle": "->", "color": "gray"},  # optional arrow
 )
 
 plt.show()
