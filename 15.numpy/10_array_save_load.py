@@ -31,10 +31,10 @@ logo_rgb = np.array(
 # ]
 
 # Save and load a .npy file.
-with open("logo.npy", "wb") as f:
+with open("15.numpy/logo.npy", "wb") as f:
     np.save(f, logo_rgb)
 
-with open("logo.npy", "rb") as f:
+with open("15.numpy/logo.npy", "rb") as f:
     logo_loaded = np.load(f)
 
 # Slice channels (R, G, B).
@@ -58,7 +58,7 @@ print(red[0], green[0], blue[0])
 # Replace bright pixels (255) with 50 to darken the image.
 dark_logo = np.where(logo_loaded == 255, 50, logo_loaded)
 
-with open("dark_logo.npy", "wb") as f:
+with open("15.numpy/dark_logo.npy", "wb") as f:
     np.save(f, dark_logo)
 
 # Example docs lookup (commented to avoid printing a long help page).

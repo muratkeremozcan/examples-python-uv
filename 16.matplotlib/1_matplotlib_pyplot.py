@@ -1,5 +1,10 @@
 import matplotlib.pyplot as plt
 
+# https://matplotlib.org/gallery.html examples figures instead of starting fom scratch
+# https://matplotlib.org/users/image_tutorial.html working w
+# https://matplotlib.org/api/animation_api.html animations
+
+
 # Key takeaways (pyplot + axes):
 # - We’ve already used Matplotlib via plt and pandas .plot().
 # - Figure = whole canvas; Axes = the plot area inside it.
