@@ -16,7 +16,7 @@ medals = pd.DataFrame(
     },
     index=["USA", "Great Britain", "China", "Russia"],
 )
-print(medals)
+# print(medals)
 #                Gold  Silver  Bronze
 # USA              46      37      38
 # Great Britain    27      23      17
@@ -38,6 +38,9 @@ ax.bar(
     label="Bronze",
 )
 ax.set_ylabel("Medals")
-ax.set_xticklabels(medals.index, rotation=90)
+# set_xticklabels controls the text shown at each tick.
+# set_xlabel sets the label for the whole axis (one title).
+ax.set_xticklabels(medals.index, rotation=90)  # rotate tick labels when names are long
+ax.set_xlabel("Country")
 ax.legend()
 plt.show()

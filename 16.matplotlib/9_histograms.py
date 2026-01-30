@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # Key takeaways (histograms):
-# - Histograms shows us the entire distribution of values within a variable.
+# - Histograms show distributions, not just averages.
 # - ax.hist() plots the full variable; label + legend clarify groups.
 # - bins controls the number or boundaries of bins.
 # - histtype="step" avoids bars occluding each other.
@@ -19,7 +19,7 @@ ax.set_ylabel("Count")
 ax.legend()
 plt.show()
 
-# Custom bins + step hist to reduce occlusion/overlap.
+# Custom bins + step hist to reduce occlusion.
 fig, ax = plt.subplots()
 ax.hist(rowing_heights, bins=[160, 170, 180, 190, 200], histtype="step", label="Rowing")
 ax.hist(
@@ -27,5 +27,5 @@ ax.hist(
 )
 ax.set_xlabel("Height (cm)")
 ax.set_ylabel("Count")
-ax.legend()  # adds a legend to the plot
+ax.legend()
 plt.show()
