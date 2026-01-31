@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 # https://matplotlib.org/gallery.html examples figures instead of starting fom scratch
 # https://matplotlib.org/users/image_tutorial.html working w
 # https://matplotlib.org/api/animation_api.html animations
+# https://matplotlib.org/stable/users/interactive.html interactive plots
 
 
 # Key takeaways (pyplot + axes):
