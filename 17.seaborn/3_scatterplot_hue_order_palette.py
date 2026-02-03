@@ -4,7 +4,7 @@ import seaborn as sns
 
 # Key takeaways (hue):
 # - Scatter plots are best for showing relationships between two quantitative variables.
-# - `hue` adds a third variable via color and auto-builds a legend.
+# - `hue` splits points into color-coded subgroups and auto-builds a legend.
 # - `hue_order` controls legend/category order.
 # - `palette` maps category values to colors (names or hex codes).
 
