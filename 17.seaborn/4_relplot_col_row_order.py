@@ -4,6 +4,7 @@ import seaborn as sns
 
 # Key takeaways (relplot + subplots):
 # - `relplot()` is figure-level and supports subplots via `col`/`row`.
+# - `col` splits one plot into multiple columns by category; `row` splits into rows.
 # - Use `col_wrap` to wrap many columns; `col_order`/`row_order` to control order.
 
 #  - scatterplot = “draw this one chart right here.”
