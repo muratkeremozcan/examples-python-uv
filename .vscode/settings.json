@@ -8,7 +8,8 @@
     "percs",
     "preds",
     "SIGALRM",
-    "venv"
+    "venv",
+    "vmin"
   ],
   "wolf.disableHotModeWarning": true,
   "python.analysis.autoImportCompletions": true,
