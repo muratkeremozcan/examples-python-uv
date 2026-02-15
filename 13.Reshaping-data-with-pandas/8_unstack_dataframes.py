@@ -3,7 +3,7 @@ import pandas as pd
 # Unstack basics:
 # - unstack() is the inverse of stack(): it moves a row level to the column side.
 # - default: moves the innermost row level; pick a level via level=<num|name>.
-# - works on Series or DataFrames; stack → unstack should round-trip if the index is unique.
+# - works on Series or DataFrames; stack then unstack should round-trip if index is unique.
 # - stack/unstack sort levels; use sort_index if you need a different order.
 
 # Start from a stacked Series (state, city, metric)

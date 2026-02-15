@@ -1,13 +1,7 @@
 import matplotlib.pyplot as plt
 
-# https://matplotlib.org/gallery.html examples figures instead of starting fom scratch
-# https://matplotlib.org/users/image_tutorial.html working w
-# https://matplotlib.org/api/animation_api.html animations
-# https://matplotlib.org/stable/users/interactive.html interactive plots
-
-
 # Key takeaways (pyplot + axes):
-# - We’ve already used Matplotlib via plt and pandas .plot().
+# - `plt` is Matplotlib's plotting interface.
 # - Figure = whole canvas; Axes = the plot area inside it.
 # - This model makes multi-plot layouts and styling easier.
 # - plt.subplots() returns (fig, ax); plot with ax.plot(), then plt.show().

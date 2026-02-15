@@ -1,8 +1,7 @@
-# Pivot Table vs GroupBy — quick compare
-# - groupby: split→apply→combine; returns Series/DF indexed by keys; great for pipelines.
-# - pivot_table: groupby + unstack; 2D layout via index/columns/values; great for reports.
-# - Extras in pivot_table: columns=..., margins=True (totals), fill_value=..., observed=True.
-# - Prefer groupby for multi-column NamedAgg and further chaining; pivot_table for matrix-style output.
+# Key takeaways (pivot_table vs groupby):
+# - `groupby` is best for data pipelines and chained calculations.
+# - `pivot_table` is best for report-style matrix layouts.
+# - `pivot_table` supports totals (`margins=True`) and missing fill (`fill_value=...`).
 
 import pandas as pd
 
@@ -25,7 +24,7 @@ print(demo)
 # 4    C        True            60
 
 # 1) Sum per type (equivalent to: demo.groupby('type')['weekly_sales'].sum())
-# (foo, row, value)
+# (group key, value column)
 print("\nSum per type (pivot_table):")
 sum_by_type = pd.pivot_table(demo, index="type", values="weekly_sales", aggfunc="sum")
 print(sum_by_type)
@@ -62,8 +61,8 @@ print(share_by_type)
 # C    0.12
 # Name: weekly_sales, dtype: float64
 
-# 4) Two keys → spread second key into columns (matrix layout)
-print("\nTwo keys → index='type', columns='is_holiday', values='weekly_sales':")
+# 4) Two keys: keep one key as rows and spread the second key into columns.
+print("\nTwo keys: index='type', columns='is_holiday', values='weekly_sales':")
 agg_by_type_holiday = pd.pivot_table(
     demo,
     index="type",

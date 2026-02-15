@@ -39,7 +39,7 @@ census = pd.DataFrame(
 # 2     4     50449     51520  400 Center Ave  60604
 
 # regular merge (inner join) gets the intersection of the two tables on the key (ward in this example)
-# df1.merge(df2, on="key", suffixes=("_foo", "_bar"))
+# df1.merge(df2, on="key", suffixes=("_left", "_right"))
 wards_census = wards.merge(census, on="ward", suffixes=("_ward", "_cen"))
 # print(wards_census)
 #    ward         alderman address_ward  zip_ward  pop_2000  pop_2010     address_cen  zip_cen
@@ -47,7 +47,7 @@ wards_census = wards.merge(census, on="ward", suffixes=("_ward", "_cen"))
 # 1     2    Brian Hopkins   456 Oak St     60602     54361     54891  200 Center Ave    60602
 
 # left join gets the intersection of the two tables on the key + the remaining left table key (ward 3 in this example)
-# df1.merge(df2, on="key", how="left", suffixes=("_foo", "_bar"))
+# df1.merge(df2, on="key", how="left", suffixes=("_left", "_right"))
 wards_census_left = wards.merge(
     census, on="ward", how="left", suffixes=("_ward", "_cen")
 )
@@ -58,7 +58,7 @@ wards_census_left = wards.merge(
 # 2     3       Pat Dowell  789 Pine St     60603       NaN       NaN             NaN      NaN
 
 # right join gets the intersection of the two tables on the key + the remaining right table key (ward 4 in this example)
-# df1.merge(df2, on="key", how="right", suffixes=("_foo", "_bar"))
+# df1.merge(df2, on="key", how="right", suffixes=("_left", "_right"))
 wards_census_right = wards.merge(
     census, on="ward", how="right", suffixes=("_ward", "_cen")
 )
@@ -81,7 +81,7 @@ census_right_varying_keys = census.rename(columns={"ward": "ward_id"})
 # 1        2     54361     54891  200 Center Ave  60602
 # 2        4     50449     51520  400 Center Ave  60604
 
-# df1.merge(df2, on="key", how="right", left_on="some_key", right_on="other_key", suffixes=("_foo", "_bar"))
+# df1.merge(df2, on="key", how="right", left_on="some_key", right_on="other_key", suffixes=("_left", "_right"))
 wards_census_right_varying_keys = wards.merge(
     census_right_varying_keys,
     left_on="ward",

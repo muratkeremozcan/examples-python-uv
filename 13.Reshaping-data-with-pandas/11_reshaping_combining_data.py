@@ -1,25 +1,10 @@
 import pandas as pd
 
-# MultiIndex mental model: still a 2D table, but row/column labels are hierarchical,
-# letting you represent higher dimensions (country/sex/year) on 2 axes.
-# Stack/unstack just moves one level between rows and columns; each cell is still a single value.
-
-# it's like doing a table within a table (almost like 3D in a 2D)
-# because you have index level /rows which is like a meta row
-# then hou have columns
-# then you have specific values called cells
-
-
-# Reshaping + stats/grouping cheat sheet:
-# - You can chain stack/unstack with aggregations (sum/mean/median/diff) to pivot between tall/wide views before/after computing stats.
-
-# - stack + agg moves a column level into the rows, then aggregates across columns (axis=1) to total by the new row level.
-
-# - unstack + agg moves a row level into columns, then aggregates across columns (axis=1) for per-row-level stats.
-
-# - diff(axis=1, periods=n) compares columns across time/levels after unstacking.
-
-# - Combine with groupby(level=...) to aggregate after reshaping (e.g., stack shop, then groupby shop and sum; groupby year then median).
+# Key takeaways (reshape + aggregate):
+# - MultiIndex keeps multiple label levels on rows/columns.
+# - `stack` moves a column level into rows; `unstack` moves a row level into columns.
+# - After reshaping, use `mean`, `median`, `sum`, or `groupby(level=...)` to summarize.
+# - Use `diff(axis=1)` to compare values across adjacent columns (for example years).
 
 
 df = pd.DataFrame(
@@ -213,9 +198,8 @@ obesity_variation = obesity.unstack(level=2).diff(axis=1)
 #            Male            2015  perc_obesity    23.0
 #            Female          2015  perc_obesity    22.2
 
-# BTW, stack() moves all columns into the row index. It doesn’t pick one column; it “rowifies” every column label,
-# so each original column becomes part of the row index and you end up with a Series.
-# so here since there is 1 column, its the same as stack(level=0)
+# stack() moves all columns into the row index.
+# With one column, this matches stack(level=0).
 
 # print(obesity.stack())
 # country    biological_sex  year

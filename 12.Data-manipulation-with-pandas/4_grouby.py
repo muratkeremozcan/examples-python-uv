@@ -1,5 +1,5 @@
 # --- GroupBy made simple -----------------------------------------------------
-# Mental model: split → apply → combine (index)[values]
+# Mental model: split, apply, combine.
 # 1) Split rows into groups by key(s)
 # 2) Apply an aggregation per group (sum/mean/count/etc.)
 # 3) Combine results into a Series/DataFrame (index = group keys)
@@ -24,7 +24,7 @@ print(demo)
 # 4    C        True            60
 
 # 1) Sum per type
-# foo.groupby('row')['value']
+# generic pattern: df.groupby('group_key')['value_column']
 print("\nSum per type → Series indexed by 'type':")
 sum_by_type = demo.groupby("type")["weekly_sales"].sum()
 print(sum_by_type)
@@ -34,10 +34,8 @@ print(sum_by_type)
 # C     60
 # Name: weekly_sales, dtype: int64
 
-# 2) Multiple aggregations per grou
-print(
-    "\nAggregations per type Multiple aggregations per group → DataFrame with named columns:"
-)
+# 2) Multiple aggregations per group.
+print("\nMultiple aggregations per group (returns a DataFrame with named columns):")
 agg_by_type = demo.groupby("type").agg(
     total_sales=("weekly_sales", "sum"),
     avg_sales=("weekly_sales", "mean"),
@@ -61,7 +59,7 @@ print(share_by_type)
 # Name: total_sales, dtype: float64
 
 # 4) Two keys
-print("\nGroup by two keys → MultiIndex; reset_index() to get normal columns:")
+print("\nGroup by two keys (MultiIndex output). Use reset_index() for normal columns:")
 sum_by_type_holiday_demo = (
     demo.groupby(["type", "is_holiday"])["weekly_sales"].sum().reset_index()
 )

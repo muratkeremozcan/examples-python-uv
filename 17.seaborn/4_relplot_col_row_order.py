@@ -6,12 +6,9 @@ import seaborn as sns
 # - `relplot()` is figure-level and supports subplots via `col`/`row`.
 # - `col` splits one plot into multiple columns by category; `row` splits into rows.
 # - Use `col_wrap` to wrap many columns; `col_order`/`row_order` to control order.
-
-#  - scatterplot = “draw this one chart right here.”
-#  - relplot = “make a whole figure that can contain many charts.”
-#  If you only want one chart, they look the same.
-#  You use relplot when you want several mini‑plots split by a category:
-#  sns.relplot(data=df, x="total_bill", y="tip", col="smoker")
+# - `scatterplot()` draws one chart on one axes.
+# - `relplot()` can draw one chart or a grid of small charts.
+# - If you need faceting (`col`/`row`), use `relplot()`.
 
 # Small tips-like dataset.
 df = pd.DataFrame(

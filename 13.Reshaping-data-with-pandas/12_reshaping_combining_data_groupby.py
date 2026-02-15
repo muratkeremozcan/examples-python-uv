@@ -34,8 +34,8 @@ print(obesity)
 
 # obesity.stack(level="country")
 # pushes the country from the column into the row index
-# • - Row index levels: year, biological_sex, country
-# • - Columns: perc_obesity
+# - Row index levels after stack: year, biological_sex, country
+# - Column after stack: perc_obesity
 
 # print(obesity.stack(level='country'))
 #                                perc_obesity

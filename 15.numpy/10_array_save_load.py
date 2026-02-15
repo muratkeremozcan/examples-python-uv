@@ -17,7 +17,7 @@ logo_rgb = np.array(
     ],
     dtype=np.uint8,
 )
-# (2, 2, 3) → 2 rows, 2 columns, 3 channels (R,G,B).
+# (2, 2, 3) means 2 rows, 2 columns, 3 channels (R,G,B).
 # print(logo_rgb)
 # [
 #  [
@@ -38,9 +38,9 @@ with open("15.numpy/logo.npy", "rb") as f:
     logo_loaded = np.load(f)
 
 # Slice channels (R, G, B).
-# logo_loaded[:, :, 0] → all rows, all cols, red channel
-# logo_loaded[:, :, 1] → green channel
-# logo_loaded[:, :, 2] → blue channel
+# logo_loaded[:, :, 0] means all rows/all cols, red channel
+# logo_loaded[:, :, 1] means green channel
+# logo_loaded[:, :, 2] means blue channel
 red = logo_loaded[:, :, 0]
 green = logo_loaded[:, :, 1]
 blue = logo_loaded[:, :, 2]

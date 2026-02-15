@@ -37,7 +37,6 @@ print()
 # Sorting by axis.
 
 
-# axis=0 sorts top → bottom
 # axis=0 = first dimension = rows (downwards)
 print(np.sort(arr_2d, axis=0))
 # [[5 0 1 4]
@@ -45,8 +44,6 @@ print(np.sort(arr_2d, axis=0))
 #  [8 7 3 9]]
 print
 
-
-# axis=1 sorts left → right
 # axis=1 = second dimension = columns (across)
 print(np.sort(arr_2d))
 # [[1 3 5 9]

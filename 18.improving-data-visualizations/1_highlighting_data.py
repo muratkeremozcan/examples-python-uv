@@ -3,9 +3,9 @@ import pandas as pd
 import seaborn as sns
 
 # Key takeaways (highlighting data):
-# - Plot all points, then highlight a small subset to guide attention.
-# - Use a color vector (one color per row) to programmatically highlight points.
-# - This scales easily to multiple highlights without multiple plot calls.
+# - Show all points for context, then emphasize only the points you care about.
+# - Build one color per row so highlighting can be data-driven.
+# - The same pattern works for one highlighted point or many.
 
 # Small, reproducible pollution-like dataset.
 df = pd.DataFrame({"day": range(1, 51)})
@@ -26,8 +26,7 @@ print(df)
 # 10   11  25.9  17.3
 
 
-# Baseline scatter plot.
-# scatter plots are best for showing relationships between two quantitative variables.
+# Baseline scatter plot (all points look the same).
 sns.scatterplot(data=df, x="NO2", y="SO2")
 plt.title("NO2 vs SO2 (all days)")
 plt.show()
@@ -35,7 +34,7 @@ plt.show()
 # Highlight a specific day (e.g., day 38).
 highlight_day = 38
 
-# highlight using Seaborn (hue + palette mapping).
+# Seaborn highlight: create a boolean flag and map True/False to colors.
 df["highlight"] = df["day"] == highlight_day
 sns.scatterplot(
     data=df,
@@ -48,7 +47,7 @@ sns.scatterplot(
 plt.title(f"NO2 vs SO2 (highlight day {highlight_day}, seaborn)")
 plt.show()
 
-# highlight using matplotlib (color vector).
+# Matplotlib highlight: pass a row-by-row color list directly.
 colors = ["crimson" if d == highlight_day else "lightgray" for d in df["day"]]
 plt.scatter(df["NO2"], df["SO2"], c=colors)
 plt.title(f"NO2 vs SO2 (highlight day {highlight_day})")

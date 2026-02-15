@@ -1,28 +1,11 @@
 import pandas as pd
 
-# Cheat sheet tied to the churn example below:
-# - swaplevel(a, b, axis=0|1): swap two index levels (rows by default).
-#  Use it when you want a different level to move during stack/unstack.
-
-# - unstack/stack can take multiple levels: pass a list of level numbers/names to move
-#   several levels in one go instead of chaining one at a time.
-
-# - Order matters: the last level you stack becomes the innermost row level; when
-#   unstacking, the last level becomes the innermost column level.
-
-# - Chaining: swap → unstack (or unstack → swap) lets you control which levels end up
-#   on rows vs columns without rewriting the data.
-
-# - Missing data note: unstack can introduce NaNs when combos don’t exist; use
-#   fill_value on unstack or fillna afterward. stack drops all-NaN rows by default
-#   (dropna=True); set dropna=False to keep the full cartesian set.
-
-# Missing-data reshaping takeaways:
-# - unstack can create NaNs when row subgroups lack matching labels;
-#  fill with fill_value or later fillna.
-
-# - stack drops all-NaN rows by default (dropna=True);
-#  set dropna=False to keep the full cartesian result, then fillna as needed.
+# Key takeaways (stack/unstack with multiple levels):
+# - `swaplevel` changes index level order before reshaping.
+# - `unstack` moves row levels to columns.
+# - `stack` moves column levels to rows.
+# - You can pass a list of levels to move multiple levels at once.
+# - Missing combinations create NaN values after `unstack`; use `fillna` if needed.
 
 
 columns = pd.MultiIndex.from_product(
@@ -133,7 +116,7 @@ churn_unstack_filled = churn_unstack.fillna(0)
 # New York           0.0      1.0        0.0      1.0        0.0      0.0        0.0      0.0        0.0      5.0        0.0      4.0        0.0      0.0        0.0      1.0        0.0      1.0        0.0      0.0        0.0      2.0        0.0      6.0
 
 
-# - keep all cartesian combos when stacking by disabling dropna, then fill.
+# - Keep all possible combinations when stacking: set dropna=False, then fill missing values.
 churn_full = churn_unstack.stack(level=["plan", "year"], dropna=False).fillna(0)
 print(churn_full)
 # exited                          churn            no_churn

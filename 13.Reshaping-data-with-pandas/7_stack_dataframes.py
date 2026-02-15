@@ -1,30 +1,10 @@
 import pandas as pd
 
-# - Why MultiIndex: store multidimensional data (e.g., country/age or member/card) in one DataFrame, enabling hierarchical grouping and reshaping.
-
-# MultiIndex mental model: still a 2D table, but row/column labels are hierarchical,
-# letting you represent higher dimensions on 2 axes.
-# Stack/unstack just moves one level between rows and columns; each cell is still a single value.
-
-# it's like doing a table within a table (almost like 3D in a 2D)
-# because you have index level /rows which is like a meta row
-# then you have columns
-# then you have specific values called cells
-
-
-# - MultiIndex basics: create multi-level row/column indexes via
-#   set_index([...])
-#   pd.MultiIndex.from_arrays(...)
-#   (assign to df.index/df.columns). Works for rows and columns.
-
-# - df.stack() moves the innermost column level to become the innermost row level.
-#   If columns are single-level, stacking collapses them into a Series; if columns are MultiIndex, it returns a DataFrame.
-
-# - df.stack(level=<level_number_or_name>) stacks a specific column level (defaults to last).
-#   Stacked level becomes the lowest row level.
-
-# - MultiIndex DataFrames: can have multi-level rows and columns;
-#   stack operates on the column levels, reshaping between wide/hierarchical layouts and longer forms for analysis.
+# Key takeaways (MultiIndex + stack):
+# - MultiIndex lets one table carry multiple label levels on rows/columns.
+# - `stack()` moves one column level into the row index.
+# - `stack(level=...)` lets you choose which column level to move.
+# - This is useful when moving between wide and long layouts.
 
 
 churn = pd.DataFrame(
@@ -82,13 +62,13 @@ churn_stack = churn.stack()
 #                            total_day_calls       67
 #                            total_day_minutes     50
 # dtype: int64
-# Why: stacking here turns the column labels into another index level
-# so that each state/city/metric is a single key—useful for long-form analyses.
+# Stacking turns column labels into another row index level.
+# That gives one key per state/city/metric for long-form analysis.
 
 #########################
 
-# Build multi-level columns so we can demonstrate stacking a chosen column level
-# instead of the implicit last one. Columns now have levels: time -> feature.
+# Build multi-level columns so we can stack a specific column level.
+# Columns now have levels: time then feature.
 time = ["night", "night", "day", "day"]
 feature = ["total calls", "total minutes", "total calls", "total minutes"]
 cols = pd.MultiIndex.from_arrays([time, feature], names=["time", "feature"])

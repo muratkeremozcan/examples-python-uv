@@ -7,9 +7,9 @@
 # - sort_index(level=...) : sort by index level
 # - sort_index(ascending=...) : sort by index level
 
-# df[column_list] → selects columns
-# df[boolean_condition] → selects rows
-# df.loc[index_values] → selects rows by index labels
+# df[column_list] selects columns
+# df[boolean_condition] selects rows
+# df.loc[index_values] selects rows by index labels
 
 from dataframes.temperatures import temperatures
 

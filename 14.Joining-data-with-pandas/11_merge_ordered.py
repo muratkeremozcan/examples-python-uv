@@ -70,7 +70,7 @@ print(stock_prices_ffill)
 # merge_ordered() defaults to how="outer"; merge() defaults to how="inner".
 # merge_ordered() = outer join + sorted output + optional forward fill.
 # merge() = general-purpose join; you must sort/fill manually.
-# Net: they're not that different—merge_ordered() mostly packages outer+sort+ffill.
+# In practice, merge_ordered() mostly bundles outer join + sort + forward-fill.
 
 # Standard merge: use how="outer" to match merge_ordered results.
 stock_prices_outer = apple.merge(

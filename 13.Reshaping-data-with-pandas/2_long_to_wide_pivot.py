@@ -94,7 +94,7 @@ print(fifa_names)
 # passing                   82        92
 # shooting                  93        92
 
-# Pivot multiple value columns at once → MultiIndex columns (metric, movement)
+# Pivot multiple value columns at once. Result columns become a MultiIndex: (metric, movement)
 fifa_over_attack = fifa_players.pivot(
     index="name", columns="movement", values=["overall", "attacking"]
 )

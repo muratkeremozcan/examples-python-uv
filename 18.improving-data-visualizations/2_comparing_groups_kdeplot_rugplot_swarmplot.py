@@ -3,9 +3,9 @@ import pandas as pd
 import seaborn as sns
 
 # Key takeaways (comparing groups):
-# - KDE plots compare distributions for continuous data and show overlap clearly.
-# - Use a rugplot to show actual data support, especially with few or discrete points.
-# - For many classes, a beeswarm (swarmplot) shows distribution shape per category.
+# - KDE is a smoothed histogram; use it to compare continuous distributions.
+# - Rug marks show the exact observed values on the axis.
+# - Swarm plots show each raw point and reveal spread per category.
 
 # Small pollution-like dataset.
 df = pd.DataFrame(
@@ -43,19 +43,19 @@ df = pd.DataFrame(
 # 11  Fairbanks  11.0
 
 
-# Compare two groups with KDE.
+# Compare two groups with KDE (Denver vs everyone else).
 df["is_denver"] = df["city"] == "Denver"
 sns.kdeplot(data=df, x="NO2", hue="is_denver")
 plt.title("NO2 distribution: Denver vs others")
 plt.show()
 
-# KDE + rug to show support.
+# Add rug marks so you can see where real observations exist.
 sns.kdeplot(data=df, x="NO2", hue="is_denver")
 sns.rugplot(data=df, x="NO2", hue="is_denver", height=0.05)
 plt.title("NO2 distribution with rug")
 plt.show()
 
-# Same idea with explicit filters, shading, labels and colors.
+# Same KDE comparison using explicit filtering plus labels.
 sns.kdeplot(df[df["is_denver"]]["NO2"], shade=True, label="Denver", color="crimson")
 sns.kdeplot(
     df[~df["is_denver"]]["NO2"], shade=True, label="Other cities", color="lightgray"
@@ -65,9 +65,7 @@ plt.legend()  # show labels for each KDE curve
 plt.show()
 
 
-# Compare many classes with beeswarm (swarmplot).
-sns.swarmplot(
-    data=df, x="city", y="NO2", size=5
-)  # you can adjust the size to make the points larger or smaller, or skip for default size
+# Compare many classes with a swarm plot (one dot per row).
+sns.swarmplot(data=df, x="city", y="NO2", size=5)
 plt.title("NO2 by city (beeswarm)")
 plt.show()

@@ -3,7 +3,8 @@ import numpy as np
 
 # Key takeaways (summaries):
 # - Use sum/min/max/mean to aggregate arrays.
-# - axis=0 for rows, going down column s x axis=1 for columns going right
+# - axis=0 means "down rows" (compute per column).
+# - axis=1 means "across columns" (compute per row).
 # - keepdims=True keeps collapsed dimensions for shape compatibility.
 # - cumsum builds cumulative totals over time.
 

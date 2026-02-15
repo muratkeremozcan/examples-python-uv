@@ -3,9 +3,9 @@ import pandas as pd
 import seaborn as sns
 
 # Key takeaways (color):
-# - Color grabs attention but can bias perception; use it intentionally.
-# - Avoid polarizing pairs (e.g., red/blue in US politics) when possible.
-# - Color can distort perceived size/length; borders or uniform colors reduce this.
+# - Color grabs attention fast, so use it on purpose.
+# - Strong cultural color pairs can add unintended meaning.
+# - Too many colors add noise; single-color bars are often easier to read.
 
 # Small categorical dataset.
 df = pd.DataFrame(
@@ -21,17 +21,17 @@ df = pd.DataFrame(
 # 2    Houston  20.1
 # 3  Fairbanks   9.8
 
-# Default palette (each bar gets a different color).
+# Default behavior: each bar gets a different color.
 sns.barplot(data=df, x="city", y="NO2")
 plt.title("NO2 by city (default palette)")
 plt.show()
 
-# Uniform color to reduce visual noise.
+# One color across bars reduces visual noise.
 sns.barplot(data=df, x="city", y="NO2", color="cadetblue")
 plt.title("NO2 by city (single color)")
 plt.show()
 
-# Add neutral borders to reduce color-size illusion.
+# Add neutral borders so shape/height are easier to compare.
 sns.barplot(
     data=df,
     x="city",

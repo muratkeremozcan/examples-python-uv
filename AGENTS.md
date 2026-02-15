@@ -32,3 +32,10 @@
 - Never commit secrets or tokens; rely on local env vars or `.envrc` (ignored by git).
 - Keep datasets lightweight; store larger samples outside the repo and document the path.
 - If tooling drifts, `uv cache clean` then `rm -rf .venv && uv sync --all-extras` resets the environment cleanly.
+
+## Learning Preferences
+- For Data/AI/ML/Python learning work (including DataCamp-style lessons), prioritize:
+- `key takeaways` first, then a simple reproducible example.
+- Explanations in plain language, assuming beginner-to-intermediate familiarity (not expert).
+- Prefer minimal, clear examples over complex "real-world" setups unless explicitly requested.
+- When an exercise is more complex than the lesson, bridge it with a simple mapping from concept to exercise syntax.

@@ -1,9 +1,7 @@
-# - pivot reshapes long -> wide only when each index/column pair is unique; it cannot aggregate duplicates.
-# - pivot_table reshapes and aggregates duplicates via aggfunc (default mean, but you should state it) —
-#   use this when you need summary stats or have repeats.
-
-# Extra pivot_table features: multiple agg funcs, multi-index inputs/outputs,
-# margins=True for totals, omit values to aggregate all numeric columns.
+# Key takeaways (pivot vs pivot_table):
+# - `pivot` reshapes long to wide only when each index/column pair is unique.
+# - `pivot_table` can handle duplicates because it aggregates with `aggfunc`.
+# - Use `pivot_table` when you need summary stats or totals (`margins=True`).
 
 import pandas as pd
 

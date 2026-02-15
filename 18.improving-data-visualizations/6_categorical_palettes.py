@@ -3,10 +3,10 @@ import pandas as pd
 import seaborn as sns
 
 # Key takeaways (categorical palettes):
-# - Categorical data uses distinct colors per class, but too many colors become hard to distinguish.
-# - For many categories, group the rest into an "Other" bucket.
-# - Use ColorBrewer-style qualitative palettes for clear class separation.
-# - Ordinal data has order; use sequential palettes with ordered categories.
+# - Use distinct colors for categories, but keep category count manageable.
+# - If there are too many classes, highlight a few and group the rest as "Other".
+# - Use qualitative palettes for unordered categories.
+# - Use ordered palettes for ordinal categories (low -> high).
 
 # Small dataset with many categories.
 df = pd.DataFrame(
@@ -25,14 +25,13 @@ df = pd.DataFrame(
 # 5    Seattle  14.6
 # 6     Boston  15.2
 
-# Basic categorical palette (qualitative).
-# "Set2" is a built-in ColorBrewer qualitative palette name.
+# "Set2" is a built-in qualitative palette from ColorBrewer.
 sns.set_palette("Set2")
 sns.barplot(data=df, x="city", y="NO2")
 plt.title("NO2 by city (qualitative palette)")
 plt.show()
 
-# Group smaller categories into "Other".
+# Keep only key cities distinct, collapse the rest into "Other".
 focus = {"Denver", "LA", "Houston"}
 df_grouped = df.copy()
 df_grouped["city_group"] = df_grouped["city"].apply(
@@ -44,7 +43,7 @@ plt.show()
 
 #####################################################
 
-# Ordinal data example (1–5 happiness scale).
+# Ordinal data example (1-5 happiness scale).
 df_ord = pd.DataFrame(
     {
         "happiness": ["1", "2", "3", "4", "5"],
@@ -62,7 +61,7 @@ sns.barplot(
 plt.title("Ordinal palette (OrRd) for ordered categories")
 plt.show()
 
-# Palette shortcut: pass palette name, Seaborn picks number of colors.
+# Palette shortcut: pass the palette name directly.
 sns.scatterplot(
     data=df,
     x="NO2",
@@ -75,7 +74,7 @@ plt.show()
 
 #####################################################
 
-# Ordinal categories from continuous data (qcut): bin into quartiles.
+# qcut turns a continuous column into ordered bins (quartiles here).
 df_bins = df.copy()
 df_bins["NO2_quartile"] = pd.qcut(df_bins["NO2"], q=4, labels=False)
 sns.scatterplot(
@@ -158,6 +157,8 @@ city_pol_month["color_cats"] = [
     x if x in wanted_combos else "other" for x in city_pol_month["city_pol"]
 ]
 
+# hue controls line color groups; units tells seaborn which rows belong to one line.
+# estimator=None disables averaging so each category keeps its own raw trajectory.
 sns.lineplot(
     data=city_pol_month,
     x="month",
