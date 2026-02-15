@@ -5,8 +5,8 @@ import pandas as pd
 # - Think: \"latest value as of this time\" (left join on nearest, not exact).
 # - Both tables must be sorted by the key column.
 # - direction controls which nearest row is picked:
-#   - backward (default): last right key ≤ left key
-#   - forward: first right key ≥ left key
+#   - backward (default): last right key <= left key
+#   - forward: first right key >= left key
 #   - nearest: closest right key in either direction
 
 

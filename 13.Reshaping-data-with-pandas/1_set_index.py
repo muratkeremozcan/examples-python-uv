@@ -1,16 +1,9 @@
-# Wide vs long refresher:
-# - Wide: one row per entity, columns hold each variable. Good for quick comparisons and row-level ops.
-# - Long/tidy: one row per entity-variable pair, typically with id columns plus`variable` and `value` columns.
-#   Good for grouping, plotting, stats.
-
-# - Convert wide -> long: pd.melt or pd.wide_to_long.
-#   Convert Long -> wide: pivot (needs unique index/column pairs)
-#                         pivot_table (can aggregate duplicates).
-
-# - Handy indexing shortcuts:
-#   set index:                  df.set_index('column_name')
-#   set index & filter columns: df.set_index('column_name')[['column1', 'column2']]
-#   flip rows/cols:             df.set_index('column_name')[['column1', 'column2']].transpose()
+# Key takeaways (wide/long + indexing):
+# - Wide format keeps variables in separate columns.
+# - Long format keeps one value per row with identifier columns.
+# - Convert wide to long with `melt` or `wide_to_long`.
+# - Convert long to wide with `pivot` or `pivot_table`.
+# - `set_index` makes a column the row label for easier lookup/slicing.
 
 
 import pandas as pd

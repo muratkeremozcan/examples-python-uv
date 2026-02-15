@@ -1,6 +1,6 @@
 import pandas as pd
 
-# String tools cheat sheet and where each is used below:
+# String tools quick guide and where each is used below:
 # - str.split(delim, expand=True): break text into pieces
 # - str.get(i): grab one piece from a split
 # - str.cat(other, sep): join strings/columns/lists

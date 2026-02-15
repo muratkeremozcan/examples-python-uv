@@ -3,10 +3,9 @@ import pandas as pd
 import seaborn as sns
 
 # Key takeaways (annotations):
-# - Annotations add compact, direct explanations near points of interest.
-# - Use them when you want to convey a message or the chart must stand alone.
-# - For exploration by experts, extra annotations can add clutter or bias.
-# - Use `plt.text()` for simple labels and `plt.annotate()` with arrows for crowded plots.
+# - Use annotations to call out what matters without sending readers to a legend.
+# - `plt.text()` is good when the point is obvious and space is clear.
+# - `plt.annotate()` is better in crowded areas because the arrow removes ambiguity.
 
 # Small example dataset.
 df = pd.DataFrame(
@@ -29,18 +28,17 @@ sns.scatterplot(data=df, x="NO2", y="SO2")
 plt.title("NO2 vs SO2")
 plt.xlabel("NO2")
 plt.ylabel("SO2")
-# Simple text annotation ( x, y is the anchor point, ha/va control text alignment to the anchor point).
+# Simple text annotation: (x, y) is the anchor point for the label.
 plt.text(
     31.2, 22.4, "Day 38 spike", fontdict={"ha": "left", "va": "bottom", "size": "large"}
 )
 plt.show()
 
-# Annotation with arrow to avoid crowding the point.
+# Annotation with arrow: keep label in open space and point to the target dot.
 sns.scatterplot(data=df, x="NO2", y="SO2")
 plt.title("NO2 vs SO2 (annotated)")
 plt.xlabel("NO2")
 plt.ylabel("SO2")
-# same as ./16.matplotlib/6_annotating_time_series.py
 plt.annotate(
     "Day 38 spike",
     xy=(31.2, 22.4),
@@ -57,9 +55,8 @@ plt.annotate(
 )
 plt.show()
 
-# regplot = regression plot. It draws a scatter plus an optional best‑fit line (and usually a confidence band).
-# Use it when you want to show both the points and a trend between two numeric variables
-# scatter_kws = keyword args forwarded to matplotlib's scatter() call (e.g., alpha, size, colors).
+# regplot = scatter + optional trend line. Here fit_reg=False keeps only the scatter.
+# scatter_kws = style options forwarded to matplotlib scatter (alpha, colors, size, ...).
 df["highlight"] = ["orangered" if d == 38 else "lightgray" for d in df["day"]]
 sns.regplot(
     data=df,

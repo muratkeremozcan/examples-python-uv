@@ -70,8 +70,8 @@ print(rows, cols)
 # [0 1 2] [2 1 0]
 
 # np.where(condition, x, y)
-# - if cond is True → take from x
-# - else → take from y
+# - if condition is True, take from x
+# - otherwise, take from y
 sudoku_filled = np.where(sudoku == 0, "", sudoku)
 print(sudoku_filled)
 # [[5 3 ""

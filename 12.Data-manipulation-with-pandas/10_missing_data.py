@@ -1,4 +1,4 @@
-# Missing-data + reshape cheat sheet:
+# Missing-data + reshape quick guide:
 # - stack/dropna: stack drops all-NaN rows by default; set dropna=False to keep them.
 # - unstack/fill_value: unstack can create NaNs when groups lack labels; use fill_value to plug a default.
 # - fillna(): replace NaNs after stacking/unstacking (0/mean/median or custom per column).

@@ -43,7 +43,7 @@ wards_census = wards.merge(census, on="ward")
 # 1     2    Brian Hopkins   456 Oak St  60602     54361     54891  200 Center Ave  60602
 
 # Control overlapping column names with suffixes.
-# df1.merge(df2, on="key", suffixes=("_foo", "_bar"))
+# df1.merge(df2, on="key", suffixes=("_left", "_right"))
 wards_census = wards.merge(census, on="ward", suffixes=("_ward", "_cen"))
 # print(wards_census)
 #    ward         alderman address_ward  zip_ward  pop_2000  pop_2010     address_cen  zip_cen

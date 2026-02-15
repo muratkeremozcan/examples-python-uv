@@ -3,26 +3,13 @@ import pandas as pd
 import seaborn as sns
 
 # Key takeaways (titles & labels):
-# - `relplot()` and `catplot()` return a FacetGrid (can include subplots).
-# - To set a title for a FacetGrid, use `g.figure.suptitle(...)`.
-
-# - `scatterplot()`/`boxplot()` return an AxesSubplot; use `g.set_title(...)`.
-# - `g.set_titles(...)` customizes subplot titles; `g.set(...)` sets axis labels.
-
-# - Use `plt.xticks(rotation=...)` to rotate tick labels.
-
-# - `hue` adds subgroups in one plot; `row`/`col` splits subgroups into subplots.
-
-# - Plot chooser:
-# - scatter/line for two quantitative vars
-#   - Scatter: individual observations;
-#   - Line: trends over ordered x (often time).
-
-# - count/bar/box/point for categories:
-#   - Count: number per category;
-#   - Bar: mean of a quantitative var per category.
-#   - Box: distribution per category;
-# 	- Point: mean + CI, good for subgroup comparisons.
+# - `relplot()` and `catplot()` return a FacetGrid (can contain multiple subplots).
+# - Use `g.figure.suptitle(...)` for a figure-wide title on a FacetGrid.
+# - `scatterplot()` and `boxplot()` return one axes; use `ax.set_title(...)`.
+# - `g.set_titles(...)` updates each subplot title; `g.set(...)` sets axis labels.
+# - Use `plt.xticks(rotation=...)` when tick labels overlap.
+# - `hue` keeps groups in one plot with different colors.
+# - `row`/`col` splits groups into separate subplots.
 
 # Small dataset.
 df = pd.DataFrame(

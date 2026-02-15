@@ -1,9 +1,9 @@
 # - drop_duplicates(subset=...) removes duplicate rows (never columns)
 # - value_counts(): frequency table for a Series, sorted desc by default
-#   • normalize=True → proportions; dropna=False to include NaN
-#   • sort=False or ascending=True to control order
-#   • bins=... to bucket numeric data
-#   • to DataFrame: s.value_counts().rename_axis('value').reset_index(name='count')
+#   - normalize=True gives proportions; dropna=False includes NaN
+#   - sort=False or ascending=True changes ordering
+#   - bins=... groups numeric values into ranges
+#   - to DataFrame: s.value_counts().rename_axis('value').reset_index(name='count')
 
 import pandas as pd
 from dataframes.sales import sales
@@ -32,19 +32,19 @@ print(
     "\n3) drop_duplicates(keep=False): drop every row that has a duplicate (by all cols)"
 )
 print(df.drop_duplicates(keep=False))
-# → keeps only rows that appear exactly once overall: (A,B,C) = (2,'y',21) and (5,'q',50)
+# Keeps only rows that appear exactly once overall: (A,B,C) = (2,'y',21) and (5,'q',50)
 
 # 4) Duplicates by a SUBSET of columns (A,B), ignoring C differences
 print("\n4) drop_duplicates(subset=['A','B']): keep first occurrence per (A,B)")
 print(df.drop_duplicates(subset=["A", "B"]))
-# → keeps one row per (A,B) pair, disregarding C
+# Keeps one row per (A,B) pair, ignoring C
 
 # 5) Subset + keep=False: drop ALL rows for (A,B) pairs that occur >1 time
 print(
     "\n5) drop_duplicates(subset=['A','B'], keep=False): only keep (A,B) pairs seen once"
 )
 print(df.drop_duplicates(subset=["A", "B"], keep=False))
-# → only (5,'q',50) remains, because (1,'x'), (2,'y'), (3,'z'), (4,'z') appear multiple times
+# Only (5,'q',50) remains, because all other (A,B) pairs repeat
 
 # 6: see which rows are considered duplicates (boolean mask)
 print("\n6) duplicated flags (all columns, keep='first')")
@@ -63,7 +63,7 @@ print("\n8) value_counts(bins=3) on C: numeric bins (unsorted)")
 print(df["C"].value_counts(bins=3, sort=False))
 
 # 9) Convert value_counts to a tidy DataFrame
-print("\n9) value_counts → DataFrame with named columns")
+print("\n9) value_counts to DataFrame with named columns")
 vc = df["B"].value_counts()
 print(vc.rename_axis("B").reset_index(name="count"))
 
