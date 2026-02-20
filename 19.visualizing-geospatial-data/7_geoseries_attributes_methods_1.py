@@ -6,6 +6,12 @@ from shapely.geometry import Point, Polygon
 # - centroid -> "what is its center point?"
 # - distance -> "how far is it from X?"
 # Use a meter-based CRS first, otherwise numbers are in degrees.
+#
+# Real-world minimum checklist:
+# 1) CRS: what units are these coordinates in?
+# 2) Predicate: for joins, do you need within/contains/intersects?
+# 3) Units: are your area/distance numbers meaningful?
+# Rule to remember: before area/distance, convert to a meter-based CRS.
 
 districts = gpd.GeoDataFrame(
     {"district": ["D1", "D2", "D3"]},
